@@ -44,6 +44,12 @@ namespace Systems::Informations::Motherboards
             }
 
             ~Motherboard_Information() = default;
+
+            string get_serial_number() { return m_serial_number; }
+
+            string get_product_name() { return m_product_name; }
+
+            string get_manufacturer() { return m_manufacturer; }
     };
 }
 

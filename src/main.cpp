@@ -3,29 +3,21 @@
 #include "kernel/sockets/clients/inc/clients.hpp"
 #include "kernel/sockets/servers/inc/servers.hpp"
 
+#include "communicators/web_interfaces/inc/web_interfaces.hpp"
+
 int main(int arc, char* argv[])
 {
-    Systems::Informations::CPUs::CPU_Information CPU_Information;
+    ifstream config_file("../config.json");
 
-    Systems::Informations::Motherboards::Motherboard_Information Motherboard_Information;
+    json config = json::parse(config_file);
 
-    string host = "127.0.0.1";
-    int server_port = 10000;
-    int client_port = 10001;
-
-    Kernel::Sockets::Clients::Client client(
-        host,
-        client_port
-    );
-    Kernel::Sockets::Servers::Server server(
-        host,
-        server_port
+    Communicators::WEB_Interfaces::WEB_Interface_Communicator communicator(
+        config["web_interface"]
     );
 
-    server.start();
+    communicator.create_connect();
 
-    // client.create_connection();
-    // client.write();
+    communicator.start();
 
     return 0;
 }

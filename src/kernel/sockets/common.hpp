@@ -41,7 +41,7 @@ namespace Kernel::Sockets::Abstracts
 
         public:
             Socket_Abstract(
-                string &host,
+                const string &host,
                 int port
             ) : m_host(host),
                 m_port(port)

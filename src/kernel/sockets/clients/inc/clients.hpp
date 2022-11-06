@@ -14,8 +14,8 @@ namespace Kernel::Sockets::Clients
 
         public:
             Client(
-                string &host,
-                int port
+                const string &host,
+                const int port
             ) : Kernel::Sockets::Abstracts::Socket_Abstract(
                     host,
                     port
@@ -65,27 +65,54 @@ namespace Kernel::Sockets::Clients
                     exit(EXIT_FAILURE);
             }
 
-            void write(
+            void send_message(
                 string &message
             )
             {
-                send(
-                    m_socket, 
-                    message.c_str(),
-                    strlen(message.c_str()), 
-                    0
-                );
+                int total = 1024, sent = 0, bytes = 0;
+
+                char *buffer = new char[message.length() + 1];
+
+                strcpy(buffer, message.c_str());
+
+                do {
+                    bytes = write(
+                        m_socket,
+                        buffer + sent,
+                        total - sent
+                    );
+                    if (bytes < 0)
+                        // TODO: Handle error
+                        break;
+                    if (bytes == 0)
+                        break;
+                    sent += bytes;
+                } while (sent < total);
             }
 
-            string get()
+            string read_message()
             {
                 char buffer[1024];
+                int total = 1024, received = 0, bytes = 0;
 
-                read(
-                    m_socket,
+                bzero(
                     buffer,
-                    1024
+                    total
                 );
+
+                do {
+                    bytes = read(
+                        m_socket,
+                        buffer + received,
+                        total - received
+                    );
+                    if (bytes < 0)
+                        // TODO: Handle error
+                        break;
+                    if (bytes == 0)
+                        break;
+                    received += bytes;
+                } while(received < total);
 
                 string output(buffer);
 

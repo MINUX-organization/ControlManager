@@ -48,7 +48,7 @@ namespace Kernel::Shells::Commands
             {
                 m_command = m_commands[command];
 
-                m_total_command = m_command + " | " + m_filter + ' ' + '\'' + m_filter_str + '\'';
+                m_total_command = m_command + " | " + m_filter + " -m 1 " + '\'' + m_filter_str + '\'';
             }
 
             ~Command() = default;
@@ -65,14 +65,14 @@ namespace Kernel::Shells::Commands
                 m_total_command = m_command;
 
                 if (m_filter != "")
-                    m_total_command += " | " + m_filter + ' ' + '\'' + m_filter_str + '\'';
+                    m_total_command += " | " + m_filter + " -m 1 " + '\'' + m_filter_str + '\'';
             }
 
             void set_filter(string &filter)
             {
                 m_filter_str = filter;
 
-                m_total_command = m_command + " | " + m_filter + ' ' + '\'' + m_filter_str + '\'';
+                m_total_command = m_command + " | " + m_filter + " -m 1 " + '\'' + m_filter_str + '\'';
             }
     };
 }

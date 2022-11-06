@@ -46,6 +46,9 @@ namespace Systems::Informations
                     ),
                     str.end()
                 );
+
+                if (str[0] == ' ')
+                    str.erase(0, 1);
             }
 
             void construct_information(
