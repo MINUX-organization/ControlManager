@@ -1,2 +1,0 @@
-/usr/bin/ar qc libControlManager-source-kernel-shell.a "CMakeFiles/ControlManager-source-kernel-shell.dir/commands/src/commands.cpp.o" "CMakeFiles/ControlManager-source-kernel-shell.dir/executors/src/executors.cpp.o"
-/usr/bin/ranlib libControlManager-source-kernel-shell.a

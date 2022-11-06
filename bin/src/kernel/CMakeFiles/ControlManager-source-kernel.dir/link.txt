@@ -1,2 +1,0 @@
-/usr/bin/ar qc libControlManager-source-kernel.a 
-/usr/bin/ranlib libControlManager-source-kernel.a

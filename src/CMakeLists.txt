@@ -10,6 +10,8 @@ set(
     main.hpp
 )
 
+add_subdirectory( communicators )
+add_subdirectory( systems )
 add_subdirectory( kernel )
 
 add_executable(
@@ -18,12 +20,16 @@ add_executable(
 )
 
 include_directories(
+    "./communications"
+    "./systems"
     "./kernel"
 )
 
 target_link_libraries(
     ${PROJECT_NAME}
 
+    ControlManager-communicators
+    ControlManager-systems
     ControlManager-kernel
 )
 

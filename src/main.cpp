@@ -1,26 +1,31 @@
 #include "main.hpp"
 
+#include "kernel/sockets/clients/inc/clients.hpp"
+#include "kernel/sockets/servers/inc/servers.hpp"
+
 int main(int arc, char* argv[])
 {
-    Kernel::Shells::Executors::Executor executor;
+    Systems::Informations::CPUs::CPU_Information CPU_Information;
 
-    Kernel::Shells::Commands::Command lscpu(
-        Kernel::Shells::Commands::Commands::lscpu
+    Systems::Informations::Motherboards::Motherboard_Information Motherboard_Information;
+
+    string host = "127.0.0.1";
+    int server_port = 10000;
+    int client_port = 10001;
+
+    Kernel::Sockets::Clients::Client client(
+        host,
+        client_port
+    );
+    Kernel::Sockets::Servers::Server server(
+        host,
+        server_port
     );
 
-    Kernel::Shells::Commands::Command lscpu_f(
-        Kernel::Shells::Commands::Commands::lscpu,
-        static_cast<string>("Architecture")
-    );
+    server.start();
 
-    cout << lscpu.get_command() << endl;
-    cout << lscpu_f.get_command() << endl;
-
-    // executor.execute(lscpu);
-    // cout << executor.get_result() << endl;
-
-    executor.execute(lscpu_f);
-    cout << executor.get_result() << endl;
+    // client.create_connection();
+    // client.write();
 
     return 0;
 }

@@ -4,7 +4,13 @@
 #define KERNEL_COMMON_HEADER
 
 #include <nlohmann/json.hpp>
+#include <algorithm>
+#include <pthread.h>
 #include <iostream>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <stdio.h>
 #include <string>
 #include <memory>
 #include <cstdio>

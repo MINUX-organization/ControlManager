@@ -11,14 +11,14 @@ add_library(
     STATIC
 
     # Headers
+    executors/inc/executors.hpp
     commands/inc/abstracts.hpp
     commands/inc/commands.hpp
-    executors/inc/executors.hpp
 
     # Sources
+    executors/src/executors.cpp
     commands/src/abstracts.cpp
     commands/src/commands.cpp
-    executors/src/executors.cpp
 )
 
 

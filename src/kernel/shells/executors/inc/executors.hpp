@@ -27,6 +27,8 @@ namespace Kernel::Shells::Executors
 
                 char buffer[1024];
 
+                m_result = "";
+
                 FILE* pipe = popen(
                     cmd.c_str(),
                     "r"
@@ -35,6 +37,8 @@ namespace Kernel::Shells::Executors
                 while(!feof(pipe))
                     if(fgets(buffer, 1024, pipe) != NULL)
                         m_result += buffer;
+
+                pclose(pipe);
             }
 
             string get_result()

@@ -3,7 +3,9 @@
 #ifndef MAIN_HEADER
 #define MAIN_HEADER
 
-#include "kernel/shells/executors/inc/executors.hpp"
+#include "systems/informations/motherboards/inc/motherboards.hpp"
+#include "systems/informations/cpus/inc/cpus.hpp"
+#include "systems/informations/gpus/inc/gpus.hpp"
 
 int main(int arc, char* argv[]);
 
