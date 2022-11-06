@@ -1,0 +1,1 @@
+/usr/bin/c++ -rdynamic CMakeFiles/ControlManager.dir/main.cpp.o -o ControlManager  kernel/libControlManager-kernel.a kernel/shells/libControlManager-kernel-shell.a 
