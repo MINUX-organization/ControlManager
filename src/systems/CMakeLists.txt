@@ -6,9 +6,11 @@ project(
 )
 
 add_subdirectory( informations )
+add_subdirectory( overclocks )
 
 include_directories(
     "./informations"
+    "./overclocks"
 )
 
 add_library(
@@ -21,4 +23,5 @@ target_link_libraries(
     ${PROJECT_NAME}
 
     ControlManager-systems-informations
+    ControlManager-systems-overclocks
 )
