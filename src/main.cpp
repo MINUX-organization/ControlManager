@@ -15,9 +15,7 @@ int main(int arc, char* argv[])
         config["web_interface"]
     );
 
-    communicator.create_connect();
-
-    communicator.start();
+    communicator.create_connection();
 
     return 0;
 }

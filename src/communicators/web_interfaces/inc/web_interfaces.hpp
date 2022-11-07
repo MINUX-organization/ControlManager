@@ -136,12 +136,17 @@ namespace Communicators::WEB_Interfaces
 
             virtual ~WEB_Interface_Communicator() = default;
 
-            void create_connect()
+            void create_connection()
             {
                 m_client.create_connection();
             }
 
-            void start()
+            void send_statistic()
+            {
+
+            }
+
+            void handle_request()
             {
                 string read_str;
                 string reply_str;
