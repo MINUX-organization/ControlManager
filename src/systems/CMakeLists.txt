@@ -6,11 +6,11 @@ project(
 )
 
 add_subdirectory( informations )
-add_subdirectory( overclocks )
+add_subdirectory( gpu_masters )
 
 include_directories(
     "./informations"
-    "./overclocks"
+    "./gpu_masters"
 )
 
 add_library(
@@ -23,5 +23,5 @@ target_link_libraries(
     ${PROJECT_NAME}
 
     ControlManager-systems-informations
-    ControlManager-systems-overclocks
+    ControlManager-systems-gpu_masters
 )
