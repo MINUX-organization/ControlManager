@@ -1,3 +1,14 @@
+/**
+ * @file nvidias.hpp
+ * @author Daniil Ibragimov (ghaghal93@gmail.com)
+ * @brief Contains classes to communicate with Nvidia GPUs
+ * @version 0.1
+ * @date 2022-11-10
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
 #pragma once
 
 #ifndef SYSTEMS_GPU_MASTERS_NVIDIAS_HEADER
@@ -9,14 +20,30 @@
 #include <NVCtrl/NVCtrl.h>
 #include <NVCtrl/NVCtrlLib.h>
 
+/**
+ * @brief Contains classes to communicate with Nvidia GPUs
+ */
 namespace Systems::GPU_Masters::Nvidias
 {
+    /**
+     * @brief Nvidia GPU Communicator
+     */
     class GPU_Master_Nvidia :
         virtual public Systems::GPU_Masters::Abstracts::GPU_Master_Abstract
     {
         private:
+            /**
+             * @brief Device object
+             */
             nvmlDevice_t *m_device = new nvmlDevice_t;
 
+            /**
+             * @brief Query attribute and get string response
+             * 
+             * @param target_type What to query
+             * @param attribute What attribute
+             * @return string 
+             */
             string query_string_attribute(
                 int target_type,
                 unsigned int attribute
@@ -40,6 +67,13 @@ namespace Systems::GPU_Masters::Nvidias
                 return string(str);
             }
 
+            /**
+             * @brief Query attribute and get int response
+             * 
+             * @param target_type What to query
+             * @param attribute What attribute
+             * @return int 
+             */
             int query_int_attribute(
                 int target_type,
                 unsigned int attribute
@@ -63,6 +97,13 @@ namespace Systems::GPU_Masters::Nvidias
                 return res;
             }
 
+            /**
+             * @brief Query attribute and get object response
+             * 
+             * @param target_type What to query
+             * @param attribute What attribute
+             * @return NVCTRLAttributeValidValuesRec 
+             */
             NVCTRLAttributeValidValuesRec query_value_attribute(
                 int target_type, 
                 unsigned int attribute
@@ -86,6 +127,13 @@ namespace Systems::GPU_Masters::Nvidias
                 return value;
             }
 
+            /**
+             * @brief Set the int attribute
+             * 
+             * @param target_type What to set
+             * @param attribute What attribute
+             * @param value Value
+             */
             void set_int_attribute(
                 int target_type,
                 unsigned int attribute,
@@ -107,6 +155,11 @@ namespace Systems::GPU_Masters::Nvidias
             }
 
         public:
+            /**
+             * @brief Construct a new gpu master nvidia object
+             * 
+             * @param gpu_id GPU ID
+             */
             GPU_Master_Nvidia(
                 size_t gpu_id
             ) : Systems::GPU_Masters::Abstracts::GPU_Master_Abstract(
@@ -114,6 +167,20 @@ namespace Systems::GPU_Masters::Nvidias
                 )
             {
                 NVCTRLAttributeValidValuesRec core, mem, voltage;
+
+                int event_base, error_base;
+
+                // CHeck if XNVCtrl extension exists
+                if (
+                    !XNVCTRLQueryExtension(
+                        m_display,
+                        &event_base,
+                        &error_base
+                    )
+                )
+                    // TODO: Handle error
+                    // NV-CONTROL X extension does not exist on m_display
+                    exit(EXIT_FAILURE);
 
                 nvmlDeviceGetHandleByIndex(
                     m_gpu_id,
@@ -145,8 +212,16 @@ namespace Systems::GPU_Masters::Nvidias
                 m_mem_clock_max = mem.u.range.max;
             }
 
+            /**
+             * @brief Destroy the gpu master nvidia object
+             */
             virtual ~GPU_Master_Nvidia() = default;
 
+            /**
+             * @brief Get the memory usage current object
+             * 
+             * @return size_t 
+             */
             size_t get_memory_usage_current()
             {
                 m_memory_usage_current = query_int_attribute(
@@ -157,6 +232,11 @@ namespace Systems::GPU_Masters::Nvidias
                 return m_memory_usage_current;
             }
 
+            /**
+             * @brief Get the power usage current object
+             * 
+             * @return size_t 
+             */
             size_t get_power_usage_current()
             {
                 m_power_usage_current = query_int_attribute(
@@ -167,6 +247,11 @@ namespace Systems::GPU_Masters::Nvidias
                 return m_power_usage_current;
             }
 
+            /**
+             * @brief Get the core clock current object
+             * 
+             * @return size_t 
+             */
             size_t get_core_clock_current()
             {
                 m_core_clock_current = query_int_attribute(
@@ -176,8 +261,15 @@ namespace Systems::GPU_Masters::Nvidias
 
                 // The function returns a 32-bit packed, GPU clock is the upper 16
                 m_core_clock_current = (m_core_clock_current & (0xFFFF << (32 - 16))) >> (32 - 16);
+
+                return m_core_clock_current;
             }
             
+            /**
+             * @brief Get the fan speed current object
+             * 
+             * @return size_t 
+             */
             size_t get_fan_speed_current()
             {
                 m_fan_speed_current = query_int_attribute(
@@ -188,6 +280,11 @@ namespace Systems::GPU_Masters::Nvidias
                 return m_fan_speed_current;
             }
             
+            /**
+             * @brief Get the temp current object
+             * 
+             * @return size_t 
+             */
             size_t get_temp_current()
             {
                 m_temp_current = query_int_attribute(
@@ -198,6 +295,11 @@ namespace Systems::GPU_Masters::Nvidias
                 return m_temp_current;
             }
 
+            /**
+             * @brief Get the mem clock current object
+             * 
+             * @return size_t 
+             */
             size_t get_mem_clock_current()
             {
                 m_core_clock_current = query_int_attribute(
@@ -211,6 +313,11 @@ namespace Systems::GPU_Masters::Nvidias
                 return m_core_clock_current;
             }
 
+            /**
+             * @brief Set the fan speed 
+             * 
+             * @param fan_speed Fan speed
+             */
             void set_fan_speed_manual(size_t fan_speed)
             {
                 set_int_attribute(
@@ -220,6 +327,9 @@ namespace Systems::GPU_Masters::Nvidias
                 );
             }
 
+            /**
+             * @brief Set the fan speed to auto mode
+             */
             void set_fan_speed_auto()
             {
                 int _ = query_int_attribute(
@@ -228,6 +338,11 @@ namespace Systems::GPU_Masters::Nvidias
                 );
             }
 
+            /**
+             * @brief Set the power usage object
+             * 
+             * @param power_usage Power usage
+             */
             void set_power_usage(size_t power_usage)
             {
                 set_int_attribute(
@@ -237,6 +352,11 @@ namespace Systems::GPU_Masters::Nvidias
                 );
             }
 
+            /**
+             * @brief Set the power limit object
+             * 
+             * @param power_limit Power limit
+             */
             void set_power_limit(size_t power_limit)
             {
                 nvmlReturn_t ret = nvmlDeviceSetPowerManagementLimit(
@@ -249,6 +369,11 @@ namespace Systems::GPU_Masters::Nvidias
                     exit(EXIT_FAILURE);
             }
 
+            /**
+             * @brief Set the core clock object
+             * 
+             * @param core_clock Core clock
+             */
             void set_core_clock(size_t core_clock)
             {
                 set_int_attribute(
@@ -258,6 +383,11 @@ namespace Systems::GPU_Masters::Nvidias
                 );
             }
 
+            /**
+             * @brief Set the memory clock object
+             * 
+             * @param mem_clock Memory clock
+             */
             void set_mem_clock(size_t mem_clock)
             {
                 set_int_attribute(

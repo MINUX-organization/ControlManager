@@ -6,7 +6,6 @@
 #include "../common.hpp"
 
 #include <X11/Xlib.h>
-
 namespace Systems::GPU_Masters::Abstracts
 {
     class GPU_Master_Abstract
@@ -66,8 +65,6 @@ namespace Systems::GPU_Masters::Abstracts
                 size_t gpu_id
             ) : m_gpu_id(gpu_id)
             {
-                int event_base, error_base;
-
                 m_display = XOpenDisplay(nullptr);
                 if (m_display == nullptr)
                     // TODO: Handle error
@@ -78,18 +75,6 @@ namespace Systems::GPU_Masters::Abstracts
                 XSetErrorHandler(
                     &Systems::GPU_Masters::Abstracts::GPU_Master_Abstract::x_lib_error_handler
                 );
-
-                // CHeck if XNVCtrl extension exists
-                if (
-                    !XNVCTRLQueryExtension(
-                        m_display,
-                        &event_base,
-                        &error_base
-                    )
-                )
-                    // TODO: Handle error
-                    // NV-CONTROL X extension does not exist on m_display
-                    exit(EXIT_FAILURE);
             }
 
             virtual ~GPU_Master_Abstract() = default;

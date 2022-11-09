@@ -1,3 +1,13 @@
+/**
+ * @file clients.hpp
+ * @author Daniil Ibragimov (ghaghal93@gmail.com)
+ * @brief Contains clients for sockets
+ * @version 0.1
+ * @date 2022-11-10
+ * 
+ * @copyright Copyright (c) 2022
+ */
+
 #pragma once
 
 #ifndef KERNEL_SOCKETS_CLIENTS_HEADER
@@ -5,14 +15,26 @@
 
 #include "../../common.hpp"
 
+/**
+ * @brief Contains clients for sockets
+ */
 namespace Kernel::Sockets::Clients
 {
+    /**
+     * @brief Client to connect server
+     */
     class Client : 
         virtual public Kernel::Sockets::Abstracts::Socket_Abstract
     {
         private:
 
         public:
+            /**
+             * @brief Construct a new Client object
+             * 
+             * @param host Host
+             * @param port Port
+             */
             Client(
                 const string &host,
                 const int port
@@ -47,11 +69,18 @@ namespace Kernel::Sockets::Clients
                     exit(EXIT_FAILURE);
             }
 
+            /**
+             * @brief Destroy the Client object
+             */
             virtual ~Client()
             {
                 shutdown(m_socket, SHUT_RDWR);
             }
 
+            /**
+             * @brief Create a connection
+             * 
+             */
             void create_connection()
             {
                 int error = connect(
@@ -65,6 +94,11 @@ namespace Kernel::Sockets::Clients
                     exit(EXIT_FAILURE);
             }
 
+            /**
+             * @brief Send message to server
+             * 
+             * @param message Message
+             */
             void send_message(
                 string &message
             )
@@ -90,6 +124,11 @@ namespace Kernel::Sockets::Clients
                 } while (sent < total);
             }
 
+            /**
+             * @brief Read message from server
+             * 
+             * @return string 
+             */
             string read_message()
             {
                 char buffer[1024];

@@ -1,3 +1,13 @@
+/**
+ * @file web_interfaces.hpp
+ * @author Daniil Ibragimov (ghaghal93@gmail.com)
+ * @brief Contains classes to communicate with WEB-interface
+ * @version 0.1
+ * @date 2022-11-10
+ * 
+ * @copyright Copyright (c) 2022
+ */
+
 #pragma once
 
 #ifndef COMMUNICATORS_WEB_INTERFACES_HEADER
@@ -9,28 +19,59 @@
 #include "../../../systems/informations/cpus/inc/cpus.hpp"
 #include "../../../systems/informations/gpus/inc/gpus.hpp"
 
+/**
+ * @brief Contains classes to communicate with WEB-interface
+ */
 namespace Communicators::WEB_Interfaces
 {
+    /**
+     * @brief Commands list from WEB-interface
+     */
     enum WEB_Interface_Commands
     {
         system_info
     };
 
+    /**
+     * @brief Communicator with WEB-interface
+     */
     class WEB_Interface_Communicator
     {
         private:
+            /**
+             * @brief Socket client
+             */
             Kernel::Sockets::Clients::Client m_client;
 
+            /**
+             * @brief CPU Info object
+             */
             Systems::Informations::CPUs::CPU_Information m_cpu_info;
 
+            /**
+             * @brief GPU Info object
+             */
             Systems::Informations::GPUs::GPU_Information m_gpu_info;
 
+            /**
+             * @brief Motherboard object
+             */
             Systems::Informations::Motherboards::Motherboard_Information m_motherboard_info;
 
+            /**
+             * @brief Map of web-interface commands
+             */
             map<int, string> m_web_commands = {
                 {0, "system-info"}
             };
 
+            /**
+             * @brief Construct new message to send to web-interface
+             * 
+             * @param message Message
+             * @param command ID of command
+             * @return json 
+             */
             json construct_message(json &message, int command)
             {
                 json reply = {};
@@ -106,6 +147,12 @@ namespace Communicators::WEB_Interfaces
                 return reply;
             }
 
+            /**
+             * @brief Parse message from web-interface
+             * 
+             * @param message Message
+             * @return json 
+             */
             json parse_message(json &message)
             {
                 json reply = {};
@@ -125,6 +172,11 @@ namespace Communicators::WEB_Interfaces
             }
 
         public:
+            /**
+             * @brief Construct a new web interface communicator object
+             * 
+             * @param configuration Configuration
+             */
             WEB_Interface_Communicator(
                 json &configuration
             ) : m_client(
@@ -134,18 +186,30 @@ namespace Communicators::WEB_Interfaces
             {
             }
 
+            /**
+             * @brief Destroy the web interface communicator object
+             */
             virtual ~WEB_Interface_Communicator() = default;
 
+            /**
+             * @brief Create a connection
+             */
             void create_connection()
             {
                 m_client.create_connection();
             }
 
+            /**
+             * @brief Send statistic
+             */
             void send_statistic()
             {
 
             }
 
+            /**
+             * @brief Handle request from WEB-interface
+             */
             void handle_request()
             {
                 string read_str;

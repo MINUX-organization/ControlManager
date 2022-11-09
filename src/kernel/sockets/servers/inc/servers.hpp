@@ -1,3 +1,13 @@
+/**
+ * @file servers.hpp
+ * @author Daniil Ibragimov (ghaghal93@gmail.com)
+ * @brief Contains servers to communicate
+ * @version 0.1
+ * @date 2022-11-10
+ * 
+ * @copyright Copyright (c) 2022
+ */
+
 #pragma once
 
 #ifndef KERNEL_SOCKETS_SERVERS_HEADER
@@ -5,14 +15,26 @@
 
 #include "../../common.hpp"
 
+/**
+ * @brief Contains servers to communicate
+ */
 namespace Kernel::Sockets::Servers
 {
+    /**
+     * @brief Server class
+     */
     class Server :
         virtual public Kernel::Sockets::Abstracts::Socket_Abstract
     {
         private:
 
         public:
+            /**
+             * @brief Construct a new Server object
+             * 
+             * @param host Host 
+             * @param port Port
+             */
             Server(
                 string &host,
                 int port
@@ -71,12 +93,20 @@ namespace Kernel::Sockets::Servers
 
             }
 
+            /**
+             * @brief Destroy the Server object
+             */
             virtual ~Server()
             {
                 close(m_client_socket);
                 shutdown(m_socket, SHUT_RDWR);
             }
 
+            /**
+             * @brief Get message from client
+             * 
+             * @return string 
+             */
             string get()
             {
                 char buffer[1024];
@@ -92,6 +122,11 @@ namespace Kernel::Sockets::Servers
                 return output;
             }
 
+            /**
+             * @brief Write message to client
+             * 
+             * @param message 
+             */
             void write(string &message)
             {
                 send(
@@ -102,6 +137,9 @@ namespace Kernel::Sockets::Servers
                 );
             }
 
+            /**
+             * @brief Start working
+             */
             void start()
             {
                 m_client_socket = accept(
