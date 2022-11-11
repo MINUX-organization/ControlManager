@@ -38,6 +38,11 @@ namespace Systems::GPU_Masters::Nvidias
             nvmlDevice_t *m_device = new nvmlDevice_t;
 
             /**
+             * @brief Xorg display object
+             */
+            Display *m_display;
+
+            /**
              * @brief Query attribute and get string response
              * 
              * @param target_type What to query
@@ -161,9 +166,13 @@ namespace Systems::GPU_Masters::Nvidias
              * @param gpu_id GPU ID
              */
             GPU_Master_Nvidia(
-                size_t gpu_id
+                size_t gpu_id,
+                Display *display
             ) : Systems::GPU_Masters::Abstracts::GPU_Master_Abstract(
                     gpu_id
+                ),
+                m_display(
+                    display
                 )
             {
                 NVCTRLAttributeValidValuesRec core, mem, voltage;

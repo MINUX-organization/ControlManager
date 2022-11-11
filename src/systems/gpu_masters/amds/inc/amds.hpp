@@ -21,7 +21,30 @@
  */
 namespace Systems::GPU_Masters::AMDs
 {
+    /**
+     * @brief AMD GPU communicator
+     */
+    class GPU_Master_AMD :
+        virtual public Systems::GPU_Masters::Abstracts::GPU_Master_Abstract
+    {
+        private:
 
+        public:
+            /**
+             * @brief Construct a new gpu master amd object
+             * 
+             * @param gpu_id ID of GPU
+             */
+            GPU_Master_AMD(
+                size_t gpu_id
+            ) : Systems::GPU_Masters::Abstracts::GPU_Master_Abstract(
+                    gpu_id
+                )
+            {
+            }
+
+            virtual ~GPU_Master_AMD() = default;
+    };
 }
 
 #endif
