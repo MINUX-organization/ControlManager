@@ -1,14 +1,13 @@
 cmake_minimum_required( VERSION 3.1.0 )
 
 project(
-    ControlManager-systems-gpu_masters
+    ControlManager-systems-masters-gpus
     LANGUAGES C CXX
 )
 
 set( NVCtrlLib_FOUND false )
 set( NVCtrlLib_INCLUDE_DIR )
 set( NVCtrlLib_LIBRARY )
-
 
 find_package(
     X11 REQUIRED

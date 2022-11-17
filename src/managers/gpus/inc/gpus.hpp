@@ -15,8 +15,8 @@
 
 #include "../../common.hpp"
 
-#include "../../../systems/gpu_masters/nvidias/inc/nvidias.hpp"
-#include "../../../systems/gpu_masters/amds/inc/amds.hpp"
+#include "../../../systems/masters/gpus/nvidias/inc/nvidias.hpp"
+#include "../../../systems/masters/gpus/amds/inc/amds.hpp"
 
 /**
  * @brief Contains managers for GPUs

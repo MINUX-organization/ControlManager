@@ -6,11 +6,11 @@ project(
 )
 
 add_subdirectory( informations )
-add_subdirectory( gpu_masters )
+add_subdirectory( masters )
 
 include_directories(
     "./informations"
-    "./gpu_masters"
+    "./masters"
 )
 
 add_library(
@@ -23,5 +23,5 @@ target_link_libraries(
     ${PROJECT_NAME}
 
     ControlManager-systems-informations
-    ControlManager-systems-gpu_masters
+    ControlManager-systems-masters
 )
