@@ -27,6 +27,8 @@ namespace Communicators::WEB_Interfaces
     class WEB_Interface_Communicator
     {
         private:
+            signals2::signal<json (string)> m_signal_web_manager_parse;
+
             /**
              * @brief Socket client
              */
@@ -69,9 +71,17 @@ namespace Communicators::WEB_Interfaces
             }
 
             /**
-             * @brief Handle request from WEB-interface
+             * @brief Start to send any statistic
              */
-            void handle_request()
+            void start_statistic_managers()
+            {
+
+            }
+
+            /**
+             * @brief Start to handle commands from WEB-interface
+             */
+            void start_web_interface_manager()
             {
                 string read_str;
                 string reply_str;
