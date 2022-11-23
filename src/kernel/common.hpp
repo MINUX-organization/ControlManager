@@ -36,7 +36,6 @@
 #include <unistd.h>
 #include <stdio.h>
 
-
 using json = nlohmann::json;
 
 using std::this_thread::sleep_for;
