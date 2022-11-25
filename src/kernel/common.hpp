@@ -13,10 +13,10 @@
 #ifndef KERNEL_COMMON_HEADER
 #define KERNEL_COMMON_HEADER
 
-#include <nlohmann/json.hpp>
-
+#include <boost/bind/bind.hpp>
 #include <boost/signals2.hpp>
-#include <boost/bind.hpp>
+
+#include <nlohmann/json.hpp>
 
 #include <algorithm>
 #include <iostream>
@@ -38,8 +38,6 @@
 
 
 using json = nlohmann::json;
-
-using namespace boost;
 
 using std::this_thread::sleep_for;
 using std::chrono::milliseconds;

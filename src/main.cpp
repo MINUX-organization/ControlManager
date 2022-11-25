@@ -1,8 +1,5 @@
 #include "main.hpp"
 
-#include "kernel/sockets/clients/inc/clients.hpp"
-#include "kernel/sockets/servers/inc/servers.hpp"
-
 #include "communicators/web_interfaces/inc/web_interfaces.hpp"
 
 int main(int arc, char* argv[])
@@ -10,12 +7,9 @@ int main(int arc, char* argv[])
     ifstream config_file("../config.json");
 
     json config = json::parse(config_file);
-
-    Communicators::WEB_Interfaces::WEB_Interface_Communicator communicator(
-        config["web_interface"]
-    );
-
-    communicator.create_connection();
+    
+    string host = config["web_interface"]["host"];
+    string port = config["web_interface"]["port"];
 
     return 0;
 }
