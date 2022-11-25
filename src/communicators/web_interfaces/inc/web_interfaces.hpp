@@ -176,7 +176,7 @@ namespace Communicators::WEB_Interfaces
                 {
                     message = receive();
                     m_mutex.lock();
-                    cout << message << endl;
+                    cout << message;
                     m_mutex.unlock();
                     std::this_thread::sleep_for(
                         std::chrono::milliseconds(500)
