@@ -42,6 +42,11 @@ namespace Managers::Statistics
              * @brief Destroy the Statistic_Hashrate object
              */
             virtual ~Statistic_Hashrate() = default;
+
+            string get_statistic()
+            {
+                return string("Hello statistic hashrate");
+            }
     };
 
     /**
@@ -66,6 +71,11 @@ namespace Managers::Statistics
              * @brief Destroy the Statistic_Temperature object
              */
             virtual ~Statistic_Temperature() = default;
+
+            string get_statistic()
+            {
+                return string("Hello statistic temperature");
+            }
     };
 }
 

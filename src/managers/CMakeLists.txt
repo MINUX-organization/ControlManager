@@ -12,13 +12,11 @@ add_library(
     gpus/inc/gpus.hpp
     statistics/inc/abstracts.hpp
     statistics/inc/statistics.hpp
-    web_interfaces/inc/web_interfaces.hpp
 
     # Sources
     gpus/src/gpus.cpp
     statistics/src/abstracts.cpp
     statistics/src/statistics.cpp
-    web_interfaces/src/web_interfaces.cpp
 
     common.hpp
 )

@@ -21,21 +21,27 @@
 #include <algorithm>
 #include <iostream>
 #include <fstream>
+#include <csignal>
 #include <string>
 #include <memory>
 #include <cstdio>
 #include <chrono>
 #include <vector>
 #include <thread>
+#include <future>
+#include <mutex>
 #include <array>
 #include <map>
 
+#include <signal.h>
+#include <errno.h>
+
+#include <sys/select.h>
 #include <pthread.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include <stdio.h>
-
 
 using json = nlohmann::json;
 
