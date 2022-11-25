@@ -15,7 +15,9 @@
 
 #include "../../common.hpp"
 #include "../../../kernel/sockets/clients/inc/clients.hpp"
-#include "../../../managers/web_interfaces/inc/web_interfaces.hpp"
+#include "../../../systems/informations/cpus/inc/cpus.hpp"
+#include "../../../systems/informations/gpus/inc/gpus.hpp"
+#include "../../../systems/informations/motherboards/inc/motherboards.hpp"
 
 /**
  * @brief Contains classes to communicate with WEB-interface
@@ -33,6 +35,8 @@ namespace Communicators::WEB_Interfaces
             {
                 system_info
             };
+
+            std::mutex m_mutex;
 
             map<int, string> m_web_commands = {
                 {WEB_Interface_Commands::system_info, "system-info"}
@@ -166,17 +170,32 @@ namespace Communicators::WEB_Interfaces
 
             void start_command_handler()
             {
-                while(true)
-                {
+                string message;
 
+                while (true)
+                {
+                    message = receive();
+                    m_mutex.lock();
+                    cout << message << endl;
+                    m_mutex.unlock();
+                    std::this_thread::sleep_for(
+                        std::chrono::milliseconds(500)
+                    );
                 }
             }
 
-            void start_statistic_handler()
+            void start_sending()
             {
-                while(true)
-                {
+                string message = "Hello from client\n";
 
+                while (true)
+                {
+                    send(
+                        message
+                    );
+                    std::this_thread::sleep_for(
+                        std::chrono::milliseconds(1000)
+                    );
                 }
             }
 
@@ -195,7 +214,84 @@ namespace Communicators::WEB_Interfaces
 
             void start()
             {
+                std::vector<std::thread> threads;
 
+                create_connection();
+
+                // auto sender = std::async(
+                //     std::launch::async,
+                //     &Communicators::WEB_Interfaces::WEB_Interface_Communicator::start_sending,
+                //     this
+                // );
+
+                // auto receiver = std::async(
+                //     std::launch::async,
+                //     &Communicators::WEB_Interfaces::WEB_Interface_Communicator::start_command_handler,
+                //     this
+                // );
+
+                threads.push_back(
+                    std::thread(
+                        &Communicators::WEB_Interfaces::WEB_Interface_Communicator::start_command_handler,
+                        this
+                    )
+                );
+                threads.push_back(
+                    std::thread(
+                        &Communicators::WEB_Interfaces::WEB_Interface_Communicator::start_sending,
+                        this
+                    )
+                );
+
+                for (auto &t : threads)
+                    t.join();
+
+
+
+                // fd_set read_fds;
+                // fd_set write_fds;
+                // fd_set except_fds;
+
+                // int maxfd = m_socket;
+
+                // while (1)
+                // {
+                //     FD_ZERO(&read_fds);
+                //     FD_SET(STDIN_FILENO, &read_fds);
+                //     FD_SET(m_socket, &read_fds);
+                    
+                //     FD_ZERO(&write_fds);
+                //     FD_SET(m_socket, &write_fds);
+                    
+                //     FD_ZERO(&except_fds);
+                //     FD_SET(STDIN_FILENO, &except_fds);
+                //     FD_SET(m_socket, &except_fds);
+
+                //     int activity = select(
+                //         maxfd + 1,
+                //         &read_fds,
+                //         &write_fds,
+                //         &except_fds,
+                //         NULL
+                //     );
+
+                //     switch (activity)
+                //     {
+                //         default:
+                //             if (FD_ISSET(m_socket, &write_fds))
+                //             {
+
+                //             }
+                //             if (FD_ISSET(m_socket, &read_fds))
+                //             {
+                //                 string message = receive();
+                //                 cout << message << endl;
+                //                 std::this_thread::sleep_for(
+                //                     std::chrono::milliseconds(1000)
+                //                 );
+                //             }
+                //     }
+                // }
             }
     };
 }

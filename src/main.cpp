@@ -12,19 +12,16 @@ int main(int arc, char* argv[])
     string host = config["web_interface"]["host"];
     int port = config["web_interface"]["port"];
 
-    Kernel::Sockets::Clients::Client client(
+    Communicators::WEB_Interfaces::WEB_Interface_Communicator comm(
         host,
         port
     );
 
-    client.create_connection();
+    comm.start();
 
-    client.send(
-        string("Hello there")
-    );
-    string rec = client.receive();
-    cout << rec;
-
+    while (true)
+    {
+    }
 
     return 0;
 }

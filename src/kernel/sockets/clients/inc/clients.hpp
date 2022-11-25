@@ -19,13 +19,14 @@ namespace Kernel::Sockets::Clients
     class Client
     {
         private:
+
+        protected:
             string m_host{ 0 };
 
             size_t m_port{ 0 };
 
             int m_socket;
 
-        protected:
             void create_connection()
             {
                 // struct sockaddr_in serv_addr;
@@ -144,10 +145,12 @@ namespace Kernel::Sockets::Clients
                 );
 
                 do {
-                    bytes = read(
+                    // bytes = read(
+                    bytes = recv(
                         m_socket,
                         buffer + received,
-                        total - received
+                        total - received,
+                        MSG_DONTWAIT
                     );
 
                     if (bytes < 0)
@@ -161,6 +164,11 @@ namespace Kernel::Sockets::Clients
                 } while(received < total);
 
                 return string(buffer);
+            }
+
+            void async_send()
+            {
+
             }
 
         public:
