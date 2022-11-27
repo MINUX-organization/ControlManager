@@ -12,12 +12,10 @@ set( Boost_USE_STATIC_LIBS ON )
 find_package( Threads REQUIRED )
 find_package( Boost REQUIRED )
 
-add_subdirectory( shells )
 add_subdirectory( sockets )
 
 include_directories(
     ${Boost_INCLUDE_DIRS}
-    "./shells"
     "./sockets"
 
     /usr/local/include
@@ -43,7 +41,6 @@ target_link_libraries(
 
     Threads::Threads
 
-    ControlManager-kernel-shell
     ControlManager-kernel-sockets
 )
 

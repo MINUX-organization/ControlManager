@@ -12,16 +12,8 @@ int main(int arc, char* argv[])
     string host = config["web_interface"]["host"];
     int port = config["web_interface"]["port"];
 
-    Communicators::WEB_Interfaces::WEB_Interface_Communicator comm(
-        host,
-        port
-    );
+    Systems::Shells::Executors::Executor executor()
 
-    comm.start();
-
-    while (true)
-    {
-    }
 
     return 0;
 }

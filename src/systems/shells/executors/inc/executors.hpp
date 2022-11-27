@@ -10,10 +10,10 @@
 
 #pragma once
 
-#ifndef KERNEL_SHELL_EXECUTOR_HEADER
-#define KERNEL_SHELL_EXECUTOR_HEADER
+#ifndef SYSTEMS_SHELL_EXECUTOR_HEADER
+#define SYSTEMS_SHELL_EXECUTOR_HEADER
 
-#include "../../../common.hpp"
+#include "../../common.hpp"
 
 #include "../../commands/inc/commands.hpp"
 
@@ -50,7 +50,7 @@ namespace Kernel::Shells::Executors
              * @param command Command object
              */
             void execute(
-                Kernel::Shells::Commands::Command &command
+                Systems::Shells::Commands::Abstracts::Command_Information_Abstract &command
             )
             {
                 string cmd = command.get_command();

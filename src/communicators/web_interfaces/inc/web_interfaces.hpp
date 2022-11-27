@@ -31,11 +31,6 @@ namespace Communicators::WEB_Interfaces
         virtual public Kernel::Sockets::Clients::Client
     {
         private:
-<<<<<<< HEAD
-
-        public:
-
-=======
             enum WEB_Interface_Commands
             {
                 system_info
@@ -49,10 +44,6 @@ namespace Communicators::WEB_Interfaces
 
             json construct_system_info(json payload)
             {
-                Systems::Informations::CPUs::CPU_Information cpu_info;
-                Systems::Informations::GPUs::GPU_Information gpu_info;
-                Systems::Informations::Motherboards::Motherboard_Information motherboard_info;
-
                 json reply_payload;
 
                 string id;
@@ -298,7 +289,6 @@ namespace Communicators::WEB_Interfaces
                 //     }
                 // }
             }
->>>>>>> b0a6fe1b7faa1953421309960005718806a148e5
     };
 }
 

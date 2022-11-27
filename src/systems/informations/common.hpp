@@ -12,9 +12,7 @@ namespace Systems::Informations
         private:
 
         protected:
-            Kernel::Shells::Executors::Executor m_executor;
-
-            Kernel::Shells::Commands::Command m_command;
+            string m_raw_information;
 
             void filter_output(
                 string &str, 
@@ -51,34 +49,28 @@ namespace Systems::Informations
                     str.erase(0, 1);
             }
 
-            void construct_information(
-                string &information,
-                string &filter
-            )
-            {
-                m_command.set_filter(
-                    filter
-                );
-                m_executor.execute(
-                    m_command
-                );
-
-                information = m_executor.get_result();
-
-                filter_output(
-                    information,
-                    filter
-                );
-            }
-
         public:
             Information_Abstract(
-                int command
-            ) : m_command(command)
+                string &raw_information
+            ) : m_raw_information(
+                    raw_information
+                )
             {
             }
 
             virtual ~Information_Abstract() = default;
+
+            string construct_information(
+                string &filter
+            )
+            {
+                filter_output(
+                    m_raw_information,
+                    filter
+                );
+
+                return m_raw_information;
+            }
     };
 }
 

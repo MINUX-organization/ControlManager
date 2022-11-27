@@ -25,20 +25,18 @@ namespace Systems::Informations::Motherboards
 
         public:
             Motherboard_Information(
+                string &raw_information
             ) : Systems::Informations::Information_Abstract(
-                    Kernel::Shells::Commands::Commands::dmidecode_motherboard
+                    raw_information
                 )
             {
-                construct_information(
-                    m_serial_number,
+                m_serial_number = construct_information(
                     m_filters[0]
                 );
-                construct_information(
-                    m_manufacturer,
+                m_manufacturer = construct_information(
                     m_filters[1]
                 );
-                construct_information(
-                    m_product_name,
+                m_product_name = construct_information(
                     m_filters[2]
                 );
             }

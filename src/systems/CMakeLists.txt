@@ -7,10 +7,12 @@ project(
 
 add_subdirectory( informations )
 add_subdirectory( masters )
+add_subdirectory( shells )
 
 include_directories(
     "./informations"
     "./masters"
+    "./shells"
 )
 
 add_library(
@@ -24,4 +26,5 @@ target_link_libraries(
 
     ControlManager-systems-informations
     ControlManager-systems-masters
+    ControlManager-systems-shells
 )

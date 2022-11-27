@@ -49,55 +49,45 @@ namespace Systems::Informations::CPUs
 
         public:
             CPU_Information(
+                string &raw_information
             ) : Systems::Informations::Information_Abstract(
-                    Kernel::Shells::Commands::Commands::lscpu
+                    raw_information
                 )
             {
                 string cpus, threads_per_core, threads_per_socket, 
                        sockets, clock_scaling, clock_max, clock_min;
 
-                construct_information(
-                    m_manufacturer,
+                m_manufacturer = construct_information(
                     m_filters[0]
                 );
-                construct_information(
-                    m_model_name,
+                m_model_name = construct_information(
                     m_filters[1]
                 );
-                construct_information(
-                    m_architecture,
+                m_architecture = construct_information(
                     m_filters[2]
                 );
-                construct_information(
-                    m_op_mode,
+                m_op_mode = construct_information(
                     m_filters[3]
                 );
-                construct_information(
-                    cpus,
+                cpus = construct_information(
                     m_filters[4]
                 );
-                construct_information(
-                    threads_per_core,
+                threads_per_core = construct_information(
                     m_filters[5]
                 );
-                construct_information(
-                    threads_per_socket,
+                threads_per_socket = construct_information(
                     m_filters[6]
                 );
-                construct_information(
-                    sockets,
+                sockets = construct_information(
                     m_filters[7]
                 );
-                construct_information(
-                    clock_scaling,
+                clock_scaling = construct_information(
                     m_filters[8]
                 );
-                construct_information(
-                    clock_max,
+                clock_max = construct_information(
                     m_filters[9]
                 );
-                construct_information(
-                    clock_min,
+                clock_min = construct_information(
                     m_filters[10]
                 );
 
