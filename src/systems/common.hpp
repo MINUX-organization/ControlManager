@@ -16,6 +16,4 @@
 
 #include "../kernel/common.hpp"
 
-#include "../kernel/shells/executors/inc/executors.hpp"
-
 #endif

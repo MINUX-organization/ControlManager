@@ -1,7 +1,7 @@
 cmake_minimum_required( VERSION 3.1.0 )
 
 project(
-    ControlManager-systems-shell
+    ControlManager-systems-shells
     LANGUAGES C CXX
 )
 

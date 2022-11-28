@@ -12,8 +12,6 @@ namespace Systems::Informations
         private:
 
         protected:
-            string m_raw_information;
-
             void filter_output(
                 string &str, 
                 string &filter
@@ -51,10 +49,7 @@ namespace Systems::Informations
 
         public:
             Information_Abstract(
-                string &raw_information
-            ) : m_raw_information(
-                    raw_information
-                )
+            )
             {
             }
 

@@ -39,7 +39,7 @@ namespace Systems::Shells::Commands::Abstracts
                 const string &command,
                 const string &filter
             ) : m_command(command),
-                m_filter(filter)
+                m_filter_str(filter)
             {
                 m_total_command = m_command + " | " + m_filter + " -m 1 " + '\'' + m_filter_str + '\'';
             }

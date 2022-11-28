@@ -63,35 +63,35 @@ namespace Communicators::WEB_Interfaces
                         gpus.push_back(elem);
                         // TODO: Error: Cannot convert gpu to array of int
 
-                cpu ? reply_payload["cpu"] = {
-                    {"information", {
-                        {"manufacturer", cpu_info.get_manufacturer()},
-                        {"model-name", cpu_info.get_model_name()},
-                        {"architecture", cpu_info.get_architecture()},
-                        {"op-modes", cpu_info.get_op_mode()},
-                        {"cores", {
-                            {"cpus", cpu_info.get_cpus()},
-                            {"threads-per-core", cpu_info.get_threads_per_core()},
-                            {"threads-per-socket", cpu_info.get_threads_per_socket()},
-                            {"sockets", cpu_info.get_sockets()}
-                        }}
-                    }},
-                    {"state", {
-                        {"clocks-mhz", {
-                            {"scalling", cpu_info.get_clock_scaling()},
-                            {"max", cpu_info.get_clock_max()},
-                            {"min", cpu_info.get_clock_min()}
-                        }}
-                    }}
-                } : reply_payload["cpu"] = {};
+                // cpu ? reply_payload["cpu"] = {
+                //     {"information", {
+                //         {"manufacturer", cpu_info.get_manufacturer()},
+                //         {"model-name", cpu_info.get_model_name()},
+                //         {"architecture", cpu_info.get_architecture()},
+                //         {"op-modes", cpu_info.get_op_mode()},
+                //         {"cores", {
+                //             {"cpus", cpu_info.get_cpus()},
+                //             {"threads-per-core", cpu_info.get_threads_per_core()},
+                //             {"threads-per-socket", cpu_info.get_threads_per_socket()},
+                //             {"sockets", cpu_info.get_sockets()}
+                //         }}
+                //     }},
+                //     {"state", {
+                //         {"clocks-mhz", {
+                //             {"scalling", cpu_info.get_clock_scaling()},
+                //             {"max", cpu_info.get_clock_max()},
+                //             {"min", cpu_info.get_clock_min()}
+                //         }}
+                //     }}
+                // } : reply_payload["cpu"] = {};
 
-                motherboard ? reply_payload["motherboard"] = {
-                    {"information", {
-                        {"manufacturer", motherboard_info.get_manufacturer()},
-                        {"product-name", motherboard_info.get_product_name()},
-                        {"serial-number", motherboard_info.get_serial_number()}
-                    }}
-                } : reply_payload["motherboard"] = {};
+                // motherboard ? reply_payload["motherboard"] = {
+                //     {"information", {
+                //         {"manufacturer", motherboard_info.get_manufacturer()},
+                //         {"product-name", motherboard_info.get_product_name()},
+                //         {"serial-number", motherboard_info.get_serial_number()}
+                //     }}
+                // } : reply_payload["motherboard"] = {};
 
                 // TODO: GPUs
 

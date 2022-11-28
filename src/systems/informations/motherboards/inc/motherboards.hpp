@@ -25,10 +25,7 @@ namespace Systems::Informations::Motherboards
 
         public:
             Motherboard_Information(
-                string &raw_information
-            ) : Systems::Informations::Information_Abstract(
-                    raw_information
-                )
+            ) : Systems::Informations::Information_Abstract()
             {
                 m_serial_number = construct_information(
                     m_filters[0]

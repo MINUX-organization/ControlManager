@@ -22,12 +22,12 @@ namespace Managers::Commanders
             virtual ~Commander() = default;
 
             string execute_information_command(
-                size_t command,
-                const string filter = ""
+                size_t command_id,
+                string filter
             )
             {
                 Systems::Shells::Commands::Abstracts::Command_Information_Abstract command = m_command_factory.get_command(
-                    command,
+                    command_id,
                     filter
                 );
 

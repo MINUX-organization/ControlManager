@@ -18,6 +18,7 @@
 
 #include <nlohmann/json.hpp>
 
+#include <functional>
 #include <algorithm>
 #include <iostream>
 #include <fstream>
@@ -32,6 +33,7 @@
 #include <mutex>
 #include <array>
 #include <map>
+
 
 #include <signal.h>
 #include <errno.h>

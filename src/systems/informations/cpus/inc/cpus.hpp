@@ -49,10 +49,7 @@ namespace Systems::Informations::CPUs
 
         public:
             CPU_Information(
-                string &raw_information
-            ) : Systems::Informations::Information_Abstract(
-                    raw_information
-                )
+            ) : Systems::Informations::Information_Abstract()
             {
                 string cpus, threads_per_core, threads_per_socket, 
                        sockets, clock_scaling, clock_max, clock_min;

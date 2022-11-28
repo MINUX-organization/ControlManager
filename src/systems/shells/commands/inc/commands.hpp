@@ -15,7 +15,7 @@
 
 #include "abstracts.hpp"
 
-namespace Kernel::Shells::Commands
+namespace Systems::Shells::Commands
 {
     enum Commands_Informations
     {
@@ -69,7 +69,7 @@ namespace Systems::Shells::Commands::Informations
 /**
  * @brief Main namespace for commands
  */
-namespace Kernel::Shells::Commands
+namespace Systems::Shells::Commands
 {
     class Command_Factory
     {

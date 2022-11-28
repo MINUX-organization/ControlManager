@@ -14,9 +14,7 @@ namespace Systems::Informations::GPUs
 
         public:
             GPU_Information(
-            ) : Systems::Informations::Information_Abstract(
-                    Kernel::Shells::Commands::Commands::lscpu
-                )
+            ) : Systems::Informations::Information_Abstract()
             {
             }
 

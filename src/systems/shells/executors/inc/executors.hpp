@@ -20,7 +20,7 @@
 /**
  * @brief Contains executors for commands
  */
-namespace Kernel::Shells::Executors
+namespace Systems::Shells::Executors
 {
     /**
      * @brief Command executor

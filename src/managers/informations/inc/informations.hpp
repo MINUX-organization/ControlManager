@@ -16,7 +16,7 @@ namespace Managers::Informations
     class Information_Manager
     {
         private:
-            boost::signals2<string (
+            boost::signals2::signal<string (
                 size_t,
                 string
             )> m_signal_commander;
@@ -35,9 +35,9 @@ namespace Managers::Informations
                 m_signal_commander.connect(
                     boost::bind(
                         &Managers::Commanders::Commander::execute_information_command,
-                        command,
-                        _1,
-                        _2                    
+                        commander,
+                        boost::placeholders::_1,
+                        boost::placeholders::_2
                     )
                 );
             }
@@ -46,7 +46,7 @@ namespace Managers::Informations
 
             void get_cpu_information()
             {
-                string information = 
+
             }
     };
 }
