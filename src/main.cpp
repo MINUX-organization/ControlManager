@@ -16,12 +16,11 @@ int main(int arc, char* argv[])
     int port = config["web_interface"]["port"];
 
     Managers::Commanders::Commander commander;
-
-    cout << commander.execute_information_command(
-        0,
-        (string)"Vendor ID:"
+    Managers::Informations::Information_Manager information_manager(
+        &commander
     );
 
+    information_manager.get_cpu_information();
 
     return 0;
 }

@@ -8,17 +8,29 @@
 namespace Systems::Informations::GPUs
 {
     class GPU_Information :
-        virtual public Systems::Informations::Information_Abstract
+        virtual public Systems::Informations::Abstracts::Information_Abstract
     {
         private:
+            vector<string> m_filters = {
+
+            };
 
         public:
             GPU_Information(
-            ) : Systems::Informations::Information_Abstract()
+            ) : Systems::Informations::Abstracts::Information_Abstract()
             {
             }
 
             ~GPU_Information() = default;
+
+            void construct(
+                vector<string> &raw_informations
+            )
+            {
+
+            }
+
+            vector<string> get_filters() { return m_filters; }
     };
 }
 

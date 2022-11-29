@@ -21,11 +21,29 @@ namespace Managers::Informations
                 string
             )> m_signal_commander;
 
-            Systems::Informations::CPUs::CPU_Information *m_cpu_info;
+            Systems::Informations::CPUs::CPU_Information m_cpu_info;
 
-            Systems::Informations::GPUs::GPU_Information *m_gpu_info;
+            Systems::Informations::GPUs::GPU_Information m_gpu_info;
 
-            Systems::Informations::Motherboards::Motherboard_Information *m_motherboard_info;
+            Systems::Informations::Motherboards::Motherboard_Information m_motherboard_info;
+
+            vector<string> setup_raw_information(
+                vector<string> &filters,
+                size_t command
+            )
+            {
+                vector<string> results;
+
+                for (auto& filter : filters)
+                    results.push_back(
+                        *m_signal_commander(
+                            command,
+                            filter
+                        )
+                    );
+                
+                return results;
+            }
 
         public:
             Information_Manager(
@@ -46,7 +64,30 @@ namespace Managers::Informations
 
             void get_cpu_information()
             {
+                vector<string> filters = m_cpu_info.get_filters();
 
+                vector<string> raw_information = setup_raw_information(
+                    filters,
+                    Systems::Shells::Commands::Commands_Informations::LSCPU
+                );
+
+                m_cpu_info.construct(
+                    raw_information
+                );
+            }
+
+            void get_motherboard_information()
+            {
+                vector<string> filters = m_motherboard_info.get_filters();
+
+                vector<string> raw_information = setup_raw_information(
+                    filters,
+                    Systems::Shells::Commands::Commands_Informations::DMIDECODE
+                );
+
+                m_motherboard_info.construct(
+                    raw_information
+                );
             }
     };
 }

@@ -8,7 +8,7 @@
 namespace Systems::Informations::Motherboards
 {
     class Motherboard_Information :
-        virtual public Systems::Informations::Information_Abstract
+        virtual public Systems::Informations::Abstracts::Information_Abstract
     {
         private:
             string m_serial_number = "";
@@ -17,7 +17,7 @@ namespace Systems::Informations::Motherboards
 
             string m_product_name = "";
 
-            array<string, 3> m_filters = {
+            vector<string> m_filters = {
                 "Serial Number:",
                 "Manufacturer:",
                 "Product Name:"
@@ -25,20 +25,28 @@ namespace Systems::Informations::Motherboards
 
         public:
             Motherboard_Information(
-            ) : Systems::Informations::Information_Abstract()
+            ) : Systems::Informations::Abstracts::Information_Abstract()
             {
-                m_serial_number = construct_information(
-                    m_filters[0]
-                );
-                m_manufacturer = construct_information(
-                    m_filters[1]
-                );
-                m_product_name = construct_information(
-                    m_filters[2]
-                );
             }
 
             ~Motherboard_Information() = default;
+
+            void construct(
+                vector<string> &raw_informations
+            )
+            {
+                for (size_t i = 0; i < raw_informations.size(); i++)
+                    filter_output(
+                        raw_informations[i],
+                        m_filters[i]
+                    );
+                
+                m_serial_number = raw_informations[0];
+                m_manufacturer = raw_informations[1];
+                m_product_name = raw_informations[2];
+            }
+
+            vector<string> get_filters() { return m_filters; }
 
             string get_serial_number() { return m_serial_number; }
 

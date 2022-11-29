@@ -5,7 +5,7 @@
 
 #include "../common.hpp"
 
-namespace Systems::Informations
+namespace Systems::Informations::Abstracts
 {
     class Information_Abstract
     {
@@ -48,24 +48,15 @@ namespace Systems::Informations
             }
 
         public:
-            Information_Abstract(
-            )
-            {
-            }
+            Information_Abstract() = default;
 
             virtual ~Information_Abstract() = default;
 
-            string construct_information(
-                string &filter
-            )
-            {
-                filter_output(
-                    m_raw_information,
-                    filter
-                );
+            virtual vector<string> get_filters() = 0; 
 
-                return m_raw_information;
-            }
+            virtual void construct(
+                vector<string> &raw_informations
+            ) = 0;
     };
 }
 
