@@ -57,7 +57,7 @@ namespace Managers::GPUs
                 m_display = XOpenDisplay(nullptr);
 
                 if (m_display == nullptr)
-                    // TODO: Handle error
+                    // TODO: Error: Cannot determine display
                     // Failed to open X display, check if $DISPLAY is set
                     exit(EXIT_FAILURE);
 
@@ -69,7 +69,7 @@ namespace Managers::GPUs
                 );
                 
                 if (!error)
-                    // TODO: Handle error
+                    // TODO: Error: Cannot get GPUs count
                     // Failed to query amount of GPUs
                     exit(EXIT_FAILURE);
 

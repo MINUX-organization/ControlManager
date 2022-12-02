@@ -16,7 +16,7 @@
 
 #include "../../common.hpp"
 
-// #include <nvml.h>
+#include <nvml.h>
 #include <NVCtrl/NVCtrl.h>
 #include <NVCtrl/NVCtrlLib.h>
 
@@ -35,7 +35,7 @@ namespace Systems::GPU_Masters::Nvidias
             /**
              * @brief Device object
              */
-            // nvmlDevice_t *m_device = new nvmlDevice_t;
+            nvmlDevice_t *m_device = new nvmlDevice_t;
 
             /**
              * @brief Xorg display object
@@ -179,7 +179,6 @@ namespace Systems::GPU_Masters::Nvidias
 
                 int event_base, error_base;
 
-                // CHeck if XNVCtrl extension exists
                 if (
                     !XNVCTRLQueryExtension(
                         m_display,
@@ -187,14 +186,13 @@ namespace Systems::GPU_Masters::Nvidias
                         &error_base
                     )
                 )
-                    // TODO: Handle error
-                    // NV-CONTROL X extension does not exist on m_display
+                    // TODO: Error: XNVCtrl extension doesn't exist on m_display
                     exit(EXIT_FAILURE);
 
-                // nvmlDeviceGetHandleByIndex(
-                //     m_gpu_id,
-                //     m_device
-                // );
+                nvmlDeviceGetHandleByIndex(
+                    m_gpu_id,
+                    m_device
+                );
 
                 m_memory_usage_max = query_int_attribute(
                     NV_CTRL_TARGET_TYPE_GPU,

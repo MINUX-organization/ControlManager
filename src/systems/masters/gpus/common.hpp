@@ -101,6 +101,11 @@ namespace Systems::GPU_Masters::Abstracts
             size_t m_gpu_id{ 0 };
 
             /**
+             * @brief GPU UUID string
+             */
+            string m_gpu_uuid = "";
+
+            /**
              * @brief Error handler for Xorg
              * 
              * @param display Display object
