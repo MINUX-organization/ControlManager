@@ -47,12 +47,12 @@ add_library(
     common.hpp
 
     # Headers
-    amds/inc/amds.hpp
-    nvidias/inc/nvidias.hpp
+    inc/abstracts.hpp
+    inc/gpus.hpp
 
     # Sources
-    amds/src/amds.cpp
-    nvidias/src/nvidias.cpp
+    src/abstracts.cpp
+    src/gpus.cpp
 )
 
 target_link_libraries(

@@ -7,7 +7,7 @@
 
 namespace Systems::Informations::CPUs
 {
-    class CPU_Information :
+    class CPU :
         virtual public Systems::Informations::Abstracts::Information_Abstract
     {
         private:
@@ -48,12 +48,12 @@ namespace Systems::Informations::CPUs
             };
 
         public:
-            CPU_Information(
+            CPU(
             ) : Systems::Informations::Abstracts::Information_Abstract()
             {
             }
 
-            ~CPU_Information() = default;
+            ~CPU() = default;
 
             void construct(
                 vector<string> &raw_informations

@@ -1,35 +1,21 @@
-/**
- * @file nvidias.hpp
- * @author Daniil Ibragimov (ghaghal93@gmail.com)
- * @brief Contains classes to communicate with Nvidia GPUs
- * @version 0.1
- * @date 2022-11-10
- * 
- * @copyright Copyright (c) 2022
- * 
- */
-
 #pragma once
 
-#ifndef SYSTEMS_GPU_MASTERS_NVIDIAS_HEADER
-#define SYSTEMS_GPU_MASTERS_NVIDIAS_HEADER
+#ifndef SYSTEMS_MASTERS_GPUS_HEADER
+#define SYSTEMS_MASTERS_GPUS_HEADER
 
-#include "../../common.hpp"
+#include "abstracts.hpp"
 
 #include <nvml.h>
 #include <NVCtrl/NVCtrl.h>
 #include <NVCtrl/NVCtrlLib.h>
 
-/**
- * @brief Contains classes to communicate with Nvidia GPUs
- */
-namespace Systems::GPU_Masters::Nvidias
+namespace Systems::Masters::GPUs
 {
     /**
      * @brief Nvidia GPU Communicator
      */
-    class GPU_Master_Nvidia :
-        virtual public Systems::GPU_Masters::Abstracts::GPU_Master_Abstract
+    class Nvidia :
+        virtual public Systems::Masters::GPUs::Abstracts::GPU_Master_Abstract
     {
         private:
             /**
@@ -165,10 +151,10 @@ namespace Systems::GPU_Masters::Nvidias
              * 
              * @param gpu_id GPU ID
              */
-            GPU_Master_Nvidia(
+            Nvidia(
                 size_t gpu_id,
                 Display *display
-            ) : Systems::GPU_Masters::Abstracts::GPU_Master_Abstract(
+            ) : Systems::Masters::GPUs::Abstracts::GPU_Master_Abstract(
                     gpu_id
                 ),
                 m_display(
@@ -222,7 +208,7 @@ namespace Systems::GPU_Masters::Nvidias
             /**
              * @brief Destroy the gpu master nvidia object
              */
-            virtual ~GPU_Master_Nvidia() = default;
+            virtual ~Nvidia() = default;
 
             /**
              * @brief Get the memory usage current object
@@ -403,6 +389,14 @@ namespace Systems::GPU_Masters::Nvidias
                     mem_clock
                 );
             }
+    };
+
+    /**
+     * @brief AMD GPU communicator
+     */
+    class AMD
+    {
+        
     };
 }
 

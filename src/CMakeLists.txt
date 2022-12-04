@@ -14,6 +14,7 @@ add_subdirectory( communicators )
 add_subdirectory( managers )
 add_subdirectory( systems )
 add_subdirectory( kernel )
+add_subdirectory( base )
 
 add_executable(
     ${PROJECT_NAME}
@@ -21,10 +22,11 @@ add_executable(
 )
 
 include_directories(
-    "./communications"
+    "./communicators"
     "./managers"
     "./systems"
     "./kernel"
+    "./base"
 )
 
 target_link_libraries(
@@ -34,6 +36,7 @@ target_link_libraries(
     ControlManager-managers
     ControlManager-systems
     ControlManager-kernel
+    ControlManager-base
 )
 
 

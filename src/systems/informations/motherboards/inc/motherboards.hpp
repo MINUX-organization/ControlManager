@@ -7,7 +7,7 @@
 
 namespace Systems::Informations::Motherboards
 {
-    class Motherboard_Information :
+    class Motherboard :
         virtual public Systems::Informations::Abstracts::Information_Abstract
     {
         private:
@@ -24,12 +24,12 @@ namespace Systems::Informations::Motherboards
             };
 
         public:
-            Motherboard_Information(
+            Motherboard(
             ) : Systems::Informations::Abstracts::Information_Abstract()
             {
             }
 
-            ~Motherboard_Information() = default;
+            ~Motherboard() = default;
 
             void construct(
                 vector<string> &raw_informations

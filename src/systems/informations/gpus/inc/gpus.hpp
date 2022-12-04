@@ -7,7 +7,7 @@
 
 namespace Systems::Informations::GPUs
 {
-    class GPU_Information :
+    class Nvidia :
         virtual public Systems::Informations::Abstracts::Information_Abstract
     {
         private:
@@ -16,12 +16,38 @@ namespace Systems::Informations::GPUs
             };
 
         public:
-            GPU_Information(
+            Nvidia(
             ) : Systems::Informations::Abstracts::Information_Abstract()
             {
             }
 
-            ~GPU_Information() = default;
+            virtual ~Nvidia() = default;
+
+            void construct(
+                vector<string> &raw_informations
+            )
+            {
+
+            }
+
+            vector<string> get_filters() { return m_filters; }
+    };
+
+    class AMD :
+        virtual public Systems::Informations::Abstracts::Information_Abstract
+    {
+        private:
+            vector<string> m_filters = {
+
+            };
+
+        public:
+            AMD(
+            ) : Systems::Informations::Abstracts::Information_Abstract()
+            {
+            }
+        
+            virtual ~AMD() = default;
 
             void construct(
                 vector<string> &raw_informations

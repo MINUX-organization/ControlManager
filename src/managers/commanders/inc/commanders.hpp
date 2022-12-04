@@ -9,16 +9,21 @@
 
 namespace Managers::Commanders
 {
-    class Commander
+    class Commander :
+        virtual public Managers::Abstracts::Manager_Abstract
     {
         private:
             Systems::Shells::Executors::Executor m_executor;
 
             Systems::Shells::Commands::Command_Factory m_command_factory;
 
-        public:
-            Commander() = default;
+        protected:
+            Commander(
+            ) : Managers::Abstracts::Manager_Abstract()
+            {
+            }
 
+        public:
             virtual ~Commander() = default;
 
             string execute_information_command(
@@ -37,6 +42,29 @@ namespace Managers::Commanders
 
                 return m_executor.get_result();
             }
+
+            static Managers::Commanders::Commander & get_instance()
+            {
+                static Managers::Commanders::Commander instance;
+
+                return instance;
+            }
+
+            Commander(
+                const Managers::Commanders::Commander&
+            ) = delete;
+
+            Commander(
+                Managers::Commanders::Commander&&
+            ) = delete;
+
+            Managers::Commanders::Commander operator = (
+                const Managers::Commanders::Commander&
+            ) = delete;
+
+            Managers::Commanders::Commander operator = (
+                Managers::Commanders::Commander&&
+            ) = delete;
     };
 }
 

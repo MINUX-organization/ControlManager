@@ -1,7 +1,7 @@
 cmake_minimum_required( VERSION 3.1.0 )
 
 project(
-    ControlManager-managers
+    ControlManager-base-hardwares
     LANGUAGES C CXX
 )
 
@@ -10,13 +10,16 @@ add_library(
 
     common.hpp
 
+
     # Headers
+    cpus/inc/cpus.hpp
     gpus/inc/gpus.hpp
-    commanders/inc/commanders.hpp
+    motherboards/inc/motherboards.hpp
 
     # Sources
+    cpus/src/cpus.cpp
     gpus/src/gpus.cpp
-    commanders/src/commanders.cpp
+    motherboards/src/motherboards.cpp
 )
 
 target_link_libraries(

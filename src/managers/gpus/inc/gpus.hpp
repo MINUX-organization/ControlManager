@@ -15,8 +15,9 @@
 
 #include "../../common.hpp"
 
-#include "../../../systems/masters/gpus/nvidias/inc/nvidias.hpp"
-#include "../../../systems/masters/gpus/amds/inc/amds.hpp"
+#include "../../commanders/inc/commanders.hpp"
+
+#include "../../../base/hardwares/gpus/inc/gpus.hpp"
 
 /**
  * @brief Contains managers for GPUs
@@ -26,29 +27,31 @@ namespace Managers::GPUs
     /**
      * @brief GPU manager
      */
-    class GPU_Manager
+    class GPU :
+        virtual public Managers::Abstracts::Manager_Abstract
     {
         private:
-            /**
-             * @brief Array of all Nvidia GPUs
-             */
-            vector<Systems::GPU_Masters::Nvidias::GPU_Master_Nvidia> m_nvidia_gpus;
-
-            /**
-             * @brief Array of all AMD GPUs
-             */
-            vector<Systems::GPU_Masters::AMDs::GPU_Master_AMD> m_amd_gpus;
-
             /**
              * @brief Xorg display object
              */
             Display *m_display = nullptr;
 
-        public:
             /**
-             * @brief Construct a new gpu manager object
+             * @brief Commander manager
              */
-            GPU_Manager()
+            Managers::Commanders::Commander *m_commander;
+
+            /**
+             * @brief Array of all Nvidia GPUs
+             */
+            vector<Base::Hardwares::GPUs::Nvidia> m_nvidia_gpus;
+
+            /**
+             * @brief Array of all AMD GPUs
+             */
+            vector<Base::Hardwares::GPUs::AMD> m_amd_gpus;
+
+            void prepare_nvidia_gpus()
             {
                 bool error;
 
@@ -57,8 +60,7 @@ namespace Managers::GPUs
                 m_display = XOpenDisplay(nullptr);
 
                 if (m_display == nullptr)
-                    // TODO: Error: Cannot determine display
-                    // Failed to open X display, check if $DISPLAY is set
+                    // TODO: Error: Failed to open X display, check if $DISPLAY is set
                     exit(EXIT_FAILURE);
 
                 // Initialize all Nvidia GPUs
@@ -69,25 +71,69 @@ namespace Managers::GPUs
                 );
                 
                 if (!error)
-                    // TODO: Error: Cannot get GPUs count
-                    // Failed to query amount of GPUs
+                    // TODO: Error: Failed to query amount of GPUs
                     exit(EXIT_FAILURE);
 
                 for (int i = 0; i < nvidia_gpus_count; i++)
                     m_nvidia_gpus.push_back(
-                        Systems::GPU_Masters::Nvidias::GPU_Master_Nvidia(
+                        Base::Hardwares::GPUs::Nvidia(
                             i,
-                            m_display
+                            m_display,
+                            m_commander
                         )
                     );
             }
 
+            void prepare_amd_gpus()
+            {
+
+            }
+
+        protected:
+            /**
+             * @brief Construct a new gpu manager object
+             */
+            GPU(
+                Managers::Commanders::Commander *commander
+            ) : Managers::Abstracts::Manager_Abstract(),
+                m_commander(commander)
+            {
+                prepare_nvidia_gpus();
+                prepare_amd_gpus();
+            }
+
+        public:
             /**
              * @brief Destroy the gpu manager object
              */
-            virtual ~GPU_Manager() = default;
+            virtual ~GPU() = default;
 
-            
+            static Managers::GPUs::GPU & get_instance(
+                Managers::Commanders::Commander *commander
+            )
+            {
+                static Managers::GPUs::GPU instance(
+                    commander
+                );
+
+                return instance;
+            }
+
+            GPU(
+                const Managers::GPUs::GPU&
+            ) = delete;
+
+            GPU(
+                Managers::GPUs::GPU&&
+            ) = delete;
+
+            Managers::GPUs::GPU operator = (
+                const Managers::GPUs::GPU&
+            ) = delete;
+
+            Managers::GPUs::GPU operator = (
+                Managers::GPUs::GPU&&
+            ) = delete;
     };
 }
 

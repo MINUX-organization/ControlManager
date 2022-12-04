@@ -4,7 +4,6 @@
 #include "kernel/sockets/clients/inc/clients.hpp"
 
 #include "managers/commanders/inc/commanders.hpp"
-#include "managers/informations/inc/informations.hpp"
 
 int main(int arc, char* argv[])
 {
@@ -15,12 +14,7 @@ int main(int arc, char* argv[])
     string host = config["web_interface"]["host"];
     int port = config["web_interface"]["port"];
 
-    Managers::Commanders::Commander commander;
-    Managers::Informations::Information_Manager information_manager(
-        &commander
-    );
-
-    information_manager.get_cpu_information();
+    Managers::Commanders::Commander &commander = Managers::Commanders::Commander::get_instance();
 
     return 0;
 }

@@ -7,7 +7,15 @@
 
 namespace Systems::Masters::CPUs
 {
+    class CPU
+    {
+        private:
 
+        public:
+            CPU() = default;
+
+            ~CPU() = default;
+    };
 }
 
 #endif

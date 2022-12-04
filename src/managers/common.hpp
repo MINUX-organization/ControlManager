@@ -15,4 +15,19 @@
 
 #include "../kernel/common.hpp"
 
+namespace Managers::Abstracts
+{
+    class Manager_Abstract
+    {
+        private:
+
+        protected:
+
+        public:
+            Manager_Abstract() = default;
+
+            virtual ~Manager_Abstract() = default;
+    };
+}
+
 #endif
