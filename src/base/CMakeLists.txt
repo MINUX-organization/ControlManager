@@ -6,9 +6,11 @@ project(
 )
 
 add_subdirectory( hardwares )
+add_subdirectory( utilities )
 
 include_directories(
     "./hardwares"
+    "./utilities"
 )
 
 add_library(
@@ -21,4 +23,5 @@ target_link_libraries(
     ${PROJECT_NAME}
 
     ControlManager-base-hardwares
+    ControlManager-base-utilities
 )

@@ -1,29 +1,29 @@
 #pragma once
 
-#ifndef MANAGERS_CPUS_HEADER
-#define MANAGERS_CPUS_HEADER
+#ifndef MANAGERS_MOTHERBOARDS_HEADER
+#define MANAGERS_MOTHERBOARDS_HEADER
 
 #include "../../common.hpp"
 
-#include "../../../base/hardwares/cpus/inc/cpus.hpp"
+#include "../../../base/hardwares/motherboards/inc/motherboards.hpp"
 
-namespace Managers::CPUs
+namespace Managers::Motherboards
 {
-    class CPU :
+    class Motherboard :
         virtual public Managers::Abstracts::Manager_Abstract
     {
         private:
-            Base::Hardwares::CPUs::CPU m_cpu_hardware;
+            Base::Hardwares::Motherboards::Motherboard m_motherboard_hardware;
 
         protected:
-            CPU(
+            Motherboard(
                 Base::Utilities::Commanders::Commander *pCommander
             ) : Managers::Abstracts::Manager_Abstract(
                     pCommander
                 )
             {
                 vector<string> raw_information;
-                vector<string> filters = m_cpu_hardware.get_information_filters();
+                vector<string> filters = m_motherboard_hardware.get_information_filters();
 
                 for (auto &filter : filters)
                     raw_information.push_back(
@@ -33,19 +33,19 @@ namespace Managers::CPUs
                         )
                     );
                 
-                m_cpu_hardware.update_full_information(
+                m_motherboard_hardware.update_full_information(
                     raw_information
                 );
             }
 
         public:
-            virtual ~CPU() = default;
+            virtual ~Motherboard() = default;
 
-            static Managers::CPUs::CPU & get_instance(
+            static Managers::Motherboards::Motherboard & get_instance(
                 Base::Utilities::Commanders::Commander *pCommander
             )
             {
-                static Managers::CPUs::CPU instance(
+                static Managers::Motherboards::Motherboard instance(
                     pCommander
                 );
 
@@ -54,23 +54,23 @@ namespace Managers::CPUs
 
             json get_full_information()
             {
-                return m_cpu_hardware.get_full_information();
+                return m_motherboard_hardware.get_full_information();
             }
 
-            CPU(
-                const Managers::CPUs::CPU&
+            Motherboard(
+                const Managers::Motherboards::Motherboard&
             ) = delete;
 
-            CPU(
-                Managers::CPUs::CPU&&
+            Motherboard(
+                Managers::Motherboards::Motherboard&&
             ) = delete;
 
-            Managers::CPUs::CPU operator = (
-                const Managers::CPUs::CPU&
+            Managers::Motherboards::Motherboard operator = (
+                const Managers::Motherboards::Motherboard&
             ) = delete;
 
-            Managers::CPUs::CPU operator = (
-                Managers::CPUs::CPU&&
+            Managers::Motherboards::Motherboard operator = (
+                Managers::Motherboards::Motherboard&&
             ) = delete;
     };
 }

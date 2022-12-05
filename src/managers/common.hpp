@@ -15,6 +15,8 @@
 
 #include "../kernel/common.hpp"
 
+#include "../base/utilities/commanders/inc/commanders.hpp"
+
 namespace Managers::Abstracts
 {
     class Manager_Abstract
@@ -22,9 +24,14 @@ namespace Managers::Abstracts
         private:
 
         protected:
+            Base::Utilities::Commanders::Commander *m_pCommander;
 
         public:
-            Manager_Abstract() = default;
+            Manager_Abstract(
+                Base::Utilities::Commanders::Commander *pCommander
+            ) : m_pCommander(pCommander)
+            {
+            }
 
             virtual ~Manager_Abstract() = default;
     };

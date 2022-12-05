@@ -10,7 +10,6 @@ add_library(
 
     common.hpp
 
-
     # Headers
     cpus/inc/cpus.hpp
     gpus/inc/gpus.hpp

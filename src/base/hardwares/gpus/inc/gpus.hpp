@@ -21,25 +21,27 @@ namespace Base::Hardwares::GPUs
         public:
             Nvidia(
                 size_t gpu_id,
-                Display *display,
-                Managers::Commanders::Commander *commander
+                Display *display
             ) : Base::Hardwares::Abstracts::Hardware_Abstract(),
                 m_master(
                     gpu_id,
                     display
                 )
             {
-                vector<string> filters = m_information.get_filters();
+            }
 
-                vector<string> raw_information = prepare_information(
-                    filters,
-                    Systems::Shells::Commands::Commands_Informations::LSCPU,
-                    commander
-                );
-
+            void update_full_information(
+                vector<string> &raw_information
+            )
+            {
                 m_information.construct(
                     raw_information
                 );
+            }
+
+            vector<string> get_information_filters()
+            {
+                return m_information.get_filters();
             }
 
             json get_full_information()
