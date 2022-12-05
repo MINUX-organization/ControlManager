@@ -5,12 +5,11 @@
 
 #include "../../common.hpp"
 
-#include "../../../systems/shells/executors/inc/executors.hpp"
+#include "../../../../systems/shells/executors/inc/executors.hpp"
 
-namespace Managers::Commanders
+namespace Base::Utilities::Commanders
 {
-    class Commander :
-        virtual public Managers::Abstracts::Manager_Abstract
+    class Commander
     {
         private:
             Systems::Shells::Executors::Executor m_executor;
@@ -18,10 +17,7 @@ namespace Managers::Commanders
             Systems::Shells::Commands::Command_Factory m_command_factory;
 
         protected:
-            Commander(
-            ) : Managers::Abstracts::Manager_Abstract()
-            {
-            }
+            Commander() = default;
 
         public:
             virtual ~Commander() = default;
@@ -43,27 +39,27 @@ namespace Managers::Commanders
                 return m_executor.get_result();
             }
 
-            static Managers::Commanders::Commander & get_instance()
+            static Base::Utilities::Commanders::Commander & get_instance()
             {
-                static Managers::Commanders::Commander instance;
+                static Base::Utilities::Commanders::Commander instance;
 
                 return instance;
             }
 
             Commander(
-                const Managers::Commanders::Commander&
+                const Base::Utilities::Commanders::Commander&
             ) = delete;
 
             Commander(
-                Managers::Commanders::Commander&&
+                Base::Utilities::Commanders::Commander&&
             ) = delete;
 
-            Managers::Commanders::Commander operator = (
-                const Managers::Commanders::Commander&
+            Base::Utilities::Commanders::Commander operator = (
+                const Base::Utilities::Commanders::Commander&
             ) = delete;
 
-            Managers::Commanders::Commander operator = (
-                Managers::Commanders::Commander&&
+            Base::Utilities::Commanders::Commander operator = (
+                Base::Utilities::Commanders::Commander&&
             ) = delete;
     };
 }

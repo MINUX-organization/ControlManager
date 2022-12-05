@@ -5,7 +5,7 @@
 
 #include "../common.hpp"
 
-#include "../../managers/commanders/inc/commanders.hpp"
+#include "../utilities/commanders/inc/commanders.hpp"
 
 namespace Base::Hardwares::Abstracts
 {
@@ -17,7 +17,7 @@ namespace Base::Hardwares::Abstracts
             vector<string> prepare_information(
                 vector<string> &filters,
                 size_t command,
-                Managers::Commanders::Commander *commander
+                Base::Utilities::Commanders::Commander *commander
             )
             {
                 vector<string> results;
@@ -34,11 +34,15 @@ namespace Base::Hardwares::Abstracts
             }
 
         public:
-            Hardware_Abstract(
-
-            ) = default;
+            Hardware_Abstract() = default;
 
             virtual ~Hardware_Abstract() = default;
+
+            virtual void update_full_information(
+                vector<string> &raw_information
+            ) = 0;
+
+            virtual vector<string> get_information_filters() = 0;
 
             virtual json get_full_information() = 0;
     };

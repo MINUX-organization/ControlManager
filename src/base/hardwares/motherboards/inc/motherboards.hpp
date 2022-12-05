@@ -19,28 +19,39 @@ namespace Base::Hardwares::Motherboards
             Systems::Masters::Motherboards::Motherboard m_master;
         
         public:
-            Motherboard(
-                Managers::Commanders::Commander *commander
-            ) : Base::Hardwares::Abstracts::Hardware_Abstract()
+            Motherboard() : Base::Hardwares::Abstracts::Hardware_Abstract()
             {
-                vector<string> filters = m_information.get_filters();
+            }
 
-                vector<string> raw_information = prepare_information(
-                    filters,
-                    Systems::Shells::Commands::Commands_Informations::LSCPU,
-                    commander
-                );
+            ~Motherboard() = default;
 
+            void update_full_information(
+                vector<string> &raw_information
+            )
+            {
                 m_information.construct(
                     raw_information
                 );
             }
 
-            ~Motherboard() = default;
+            vector<string> get_information_filters()
+            {
+                return m_information.get_filters();
+            }
 
             json get_full_information()
             {
+                json result = {};
 
+                result = {
+                    {"information", {
+                        {"manufacturer", m_information.get_manufacturer()},
+                        {"product-name", m_information.get_product_name()},
+                        {"serial-number", m_information.get_serial_number()}
+                    }}
+                };
+
+                return result;
             }
     };
 }

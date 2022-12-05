@@ -15,7 +15,7 @@
 
 #include "../../common.hpp"
 
-#include "../../commanders/inc/commanders.hpp"
+#include "../../../base/utilities/commanders/inc/commanders.hpp"
 
 #include "../../../base/hardwares/gpus/inc/gpus.hpp"
 
@@ -39,7 +39,7 @@ namespace Managers::GPUs
             /**
              * @brief Commander manager
              */
-            Managers::Commanders::Commander *m_commander;
+            Base::Utilities::Commanders::Commander *m_commander;
 
             /**
              * @brief Array of all Nvidia GPUs
@@ -78,8 +78,7 @@ namespace Managers::GPUs
                     m_nvidia_gpus.push_back(
                         Base::Hardwares::GPUs::Nvidia(
                             i,
-                            m_display,
-                            m_commander
+                            m_display
                         )
                     );
             }
@@ -94,9 +93,10 @@ namespace Managers::GPUs
              * @brief Construct a new gpu manager object
              */
             GPU(
-                Managers::Commanders::Commander *commander
-            ) : Managers::Abstracts::Manager_Abstract(),
-                m_commander(commander)
+                Base::Utilities::Commanders::Commander *pCommander
+            ) : Managers::Abstracts::Manager_Abstract(
+                    pCommander
+                )
             {
                 prepare_nvidia_gpus();
                 prepare_amd_gpus();
@@ -109,11 +109,11 @@ namespace Managers::GPUs
             virtual ~GPU() = default;
 
             static Managers::GPUs::GPU & get_instance(
-                Managers::Commanders::Commander *commander
+                Base::Utilities::Commanders::Commander *pCommander
             )
             {
                 static Managers::GPUs::GPU instance(
-                    commander
+                    pCommander
                 );
 
                 return instance;

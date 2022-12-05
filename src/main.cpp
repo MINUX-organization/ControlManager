@@ -3,7 +3,9 @@
 #include "communicators/web_interfaces/inc/web_interfaces.hpp"
 #include "kernel/sockets/clients/inc/clients.hpp"
 
-#include "managers/commanders/inc/commanders.hpp"
+#include "managers/cpus/inc/cpus.hpp"
+#include "managers/gpus/inc/gpus.hpp"
+#include "managers/motherboards/inc/motherboards.hpp"
 
 int main(int arc, char* argv[])
 {
@@ -14,7 +16,16 @@ int main(int arc, char* argv[])
     string host = config["web_interface"]["host"];
     int port = config["web_interface"]["port"];
 
-    Managers::Commanders::Commander &commander = Managers::Commanders::Commander::get_instance();
+
+    Base::Utilities::Commanders::Commander &commander = Base::Utilities::Commanders::Commander::get_instance();
+
+    Managers::CPUs::CPU &cpu_mngr = Managers::CPUs::CPU::get_instance(
+        &commander
+    );
+
+    json result = cpu_mngr.get_full_information();
+
+    cout << result << endl;
 
     return 0;
 }
