@@ -40,7 +40,9 @@ namespace Base::Hardwares::CPUs
 
             json get_full_information()
             {
+                json result = {};
 
+                return result;
             }
     };
 }

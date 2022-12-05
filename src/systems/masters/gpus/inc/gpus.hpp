@@ -9,6 +9,13 @@
 #include <NVCtrl/NVCtrl.h>
 #include <NVCtrl/NVCtrlLib.h>
 
+#include <fcntl.h>
+#include <xf86drm.h>
+#include <sys/ioctl.h>
+#include <xf86drmMode.h>
+#include <libdrm/amdgpu.h>
+#include <libdrm/amdgpu_drm.h>
+
 namespace Systems::Masters::GPUs
 {
     /**
@@ -394,9 +401,19 @@ namespace Systems::Masters::GPUs
     /**
      * @brief AMD GPU communicator
      */
-    class AMD
+    class AMD :
+        virtual public Systems::Masters::GPUs::Abstracts::GPU_Master_Abstract
     {
-        
+        private:
+
+        public:
+            AMD(
+                size_t id
+            ) : Systems::Masters::GPUs::Abstracts::GPU_Master_Abstract(
+                    id
+                )
+            {
+            }
     };
 }
 

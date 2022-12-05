@@ -40,7 +40,9 @@ namespace Base::Hardwares::Motherboards
 
             json get_full_information()
             {
+                json result = {};
 
+                return result;
             }
     };
 }
