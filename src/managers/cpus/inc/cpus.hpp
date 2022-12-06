@@ -28,7 +28,7 @@ namespace Managers::CPUs
                 for (auto &filter : filters)
                     raw_information.push_back(
                         m_pCommander->execute_information_command(
-                            Systems::Shells::Commands::Commands_Informations::LSCPU,
+                            Systems::Shells::Factories::Command_Information_IDs::LSCPU,
                             filter
                         )
                     );

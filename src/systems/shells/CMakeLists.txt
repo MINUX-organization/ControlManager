@@ -10,6 +10,9 @@ add_library(
 
     STATIC
 
+    common.hpp
+    factories.hpp
+
     # Headers
     executors/inc/executors.hpp
     commands/inc/abstracts.hpp

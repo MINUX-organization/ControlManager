@@ -3,9 +3,7 @@
 #include "communicators/web_interfaces/inc/web_interfaces.hpp"
 #include "kernel/sockets/clients/inc/clients.hpp"
 
-#include "managers/cpus/inc/cpus.hpp"
-#include "managers/gpus/inc/gpus.hpp"
-#include "managers/motherboards/inc/motherboards.hpp"
+#include "managers/factories.hpp"
 
 int main(int arc, char* argv[])
 {
@@ -19,13 +17,28 @@ int main(int arc, char* argv[])
 
     Base::Utilities::Commanders::Commander &commander = Base::Utilities::Commanders::Commander::get_instance();
 
-    Managers::CPUs::CPU &cpu_mngr = Managers::CPUs::CPU::get_instance(
+    Managers::Factories::Manager_Factory mngr_fctr(
         &commander
     );
 
-    json result = cpu_mngr.get_full_information();
+    Managers::CPUs::CPU* cpu_mngr = dynamic_cast<Managers::CPUs::CPU*>(
+        mngr_fctr.get_manager(
+            Managers::Factories::Manager_IDs::CPUS_MANAGER
+        )
+    );
+    // Managers::GPUs::GPU* gpu_mngr = dynamic_cast<Managers::GPUs::GPU*>(
+    //     mngr_fctr.get_manager(
+    //         Managers::Factories::Manager_IDs::GPUS_MANAGER
+    //     )
+    // );
+    Managers::Motherboards::Motherboard* motherboard_mngr = dynamic_cast<Managers::Motherboards::Motherboard*>(
+        mngr_fctr.get_manager(
+            Managers::Factories::Manager_IDs::MOTHERBOARDS_MANAGER
+        )
+    );
 
-    cout << result << endl;
+    cout << cpu_mngr->get_full_information() << endl;
+    cout << motherboard_mngr->get_full_information() << endl;
 
     return 0;
 }

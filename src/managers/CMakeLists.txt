@@ -9,6 +9,7 @@ add_library(
     ${PROJECT_NAME}
 
     common.hpp
+    factories.hpp
 
     # Headers
     gpus/inc/gpus.hpp

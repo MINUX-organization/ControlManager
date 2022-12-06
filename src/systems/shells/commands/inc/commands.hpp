@@ -15,15 +15,6 @@
 
 #include "abstracts.hpp"
 
-namespace Systems::Shells::Commands
-{
-    enum Commands_Informations
-    {
-        LSCPU = 0x00,
-        DMIDECODE
-    };
-}
-
 /**
  * @brief Contains classes of commands for shell to get information about something
  */
@@ -65,41 +56,5 @@ namespace Systems::Shells::Commands::Informations
             virtual ~Command_dmidecode() = default;
     };
 }
-
-/**
- * @brief Main namespace for commands
- */
-namespace Systems::Shells::Commands
-{
-    class Command_Factory
-    {
-        private:
-            Systems::Shells::Commands::Abstracts::Command_Information_Abstract *m_command;
-
-        public:
-            Command_Factory() = default;
-
-            virtual ~Command_Factory() = default;
-
-            Systems::Shells::Commands::Abstracts::Command_Information_Abstract get_command(
-                size_t command,
-                string &filter
-            )
-            {
-                if (command == Commands_Informations::LSCPU)
-                    m_command = new Systems::Shells::Commands::Informations::Command_lscpu(
-                        filter
-                    );
-                if (command == Commands_Informations::DMIDECODE)
-                    m_command = new Systems::Shells::Commands::Informations::Command_dmidecode(
-                        filter
-                    );
-                
-                return *m_command;
-            }
-    };
-}
-
-
 
 #endif

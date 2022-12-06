@@ -5,7 +5,7 @@
 
 #include "../../common.hpp"
 
-#include "../../../../systems/shells/executors/inc/executors.hpp"
+#include "../../../../systems/shells/factories.hpp"
 
 namespace Base::Utilities::Commanders
 {
@@ -14,7 +14,7 @@ namespace Base::Utilities::Commanders
         private:
             Systems::Shells::Executors::Executor m_executor;
 
-            Systems::Shells::Commands::Command_Factory m_command_factory;
+            Systems::Shells::Factories::Command_Factory m_command_factory;
 
         protected:
             Commander() = default;

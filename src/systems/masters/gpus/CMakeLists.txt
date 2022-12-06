@@ -46,6 +46,8 @@ add_library(
 
     common.hpp
 
+    /usr/include/nvml.h
+
     # Headers
     inc/abstracts.hpp
     inc/gpus.hpp
@@ -60,4 +62,8 @@ target_link_libraries(
 
     ${NVCtrlLib_LIBRARY}
     ${X11_LIBRARIES}
+
+    /usr/lib/x86_64-linux-gnu/libnvidia-ml.so
+    /usr/lib/x86_64-linux-gnu/libnvidia-ml.so.1
+    /usr/lib/x86_64-linux-gnu/libnvidia-ml.so.510.108.03
 )

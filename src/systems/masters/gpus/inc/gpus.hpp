@@ -182,7 +182,7 @@ namespace Systems::Masters::GPUs
                     // TODO: Error: XNVCtrl extension doesn't exist on m_display
                     exit(EXIT_FAILURE);
 
-                nvmlDeviceGetHandleByIndex(
+                nvmlDeviceGetHandleByIndex_v2(
                     m_gpu_id,
                     m_device
                 );
