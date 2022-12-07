@@ -9,6 +9,7 @@ add_library(
     ${PROJECT_NAME}
 
     common.hpp
+    factories.hpp
 
     # Headers
     cpus/inc/cpus.hpp
