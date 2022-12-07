@@ -13,27 +13,29 @@ namespace Managers::Motherboards
         virtual public Managers::Abstracts::Manager_Abstract
     {
         private:
-            Base::Hardwares::Motherboards::Motherboard m_motherboard_hardware;
+            Base::Hardwares::Motherboards::Motherboard *m_pMotherboard_hardware;
 
         protected:
             Motherboard(
-                Base::Utilities::Commanders::Commander *pCommander
+                Base::Utilities::Commanders::Commander *pCommander,
+                Base::Hardwares::Motherboards::Motherboard *pMotherboard_hardware
             ) : Managers::Abstracts::Manager_Abstract(
                     pCommander
-                )
+                ),
+                m_pMotherboard_hardware(pMotherboard_hardware)
             {
                 vector<string> raw_information;
-                vector<string> filters = m_motherboard_hardware.get_information_filters();
+                vector<string> filters = m_pMotherboard_hardware->get_information_filters();
 
                 for (auto &filter : filters)
                     raw_information.push_back(
                         m_pCommander->execute_information_command(
-                            Systems::Shells::Factories::Command_Information_IDs::LSCPU,
+                            Systems::Shells::Factories::Command_Information_IDs::DMIDECODE_COMMAND,
                             filter
                         )
                     );
                 
-                m_motherboard_hardware.update_full_information(
+                m_pMotherboard_hardware->update_full_information(
                     raw_information
                 );
             }
@@ -42,11 +44,13 @@ namespace Managers::Motherboards
             virtual ~Motherboard() = default;
 
             static Managers::Motherboards::Motherboard & get_instance(
-                Base::Utilities::Commanders::Commander *pCommander
+                Base::Utilities::Commanders::Commander *pCommander,
+                Base::Hardwares::Motherboards::Motherboard *pMotherboard_hardware
             )
             {
                 static Managers::Motherboards::Motherboard instance(
-                    pCommander
+                    pCommander,
+                    pMotherboard_hardware
                 );
 
                 return instance;
@@ -54,7 +58,7 @@ namespace Managers::Motherboards
 
             json get_full_information()
             {
-                return m_motherboard_hardware.get_full_information();
+                return m_pMotherboard_hardware->get_full_information();
             }
 
             Motherboard(

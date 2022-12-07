@@ -7,14 +7,17 @@
 
 namespace Systems::Masters::CPUs
 {
-    class CPU
+    class CPU :
+        virtual public Systems::Masters::Abstracts::Master_Abstract
     {
         private:
 
         public:
-            CPU() = default;
+            CPU() : Systems::Masters::Abstracts::Master_Abstract()
+            {
+            }
 
-            ~CPU() = default;
+            virtual ~CPU() = default;
     };
 }
 

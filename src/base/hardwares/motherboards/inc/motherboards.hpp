@@ -5,21 +5,23 @@
 
 #include "../../common.hpp"
 
-#include "../../../../systems/informations/motherboards/inc/motherboards.hpp"
-#include "../../../../systems/masters/motherboards/inc/motherboards.hpp"
-
 namespace Base::Hardwares::Motherboards
 {
     class Motherboard :
         virtual public Base::Hardwares::Abstracts::Hardware_Abstract
     {
         private:
-            Systems::Informations::Motherboards::Motherboard m_information;
+            Systems::Masters::Motherboards::Motherboard *m_pMaster;
 
-            Systems::Masters::Motherboards::Motherboard m_master;
+            Systems::Informations::Motherboards::Motherboard *m_pInformation;
         
         public:
-            Motherboard() : Base::Hardwares::Abstracts::Hardware_Abstract()
+            Motherboard(
+                Systems::Masters::Motherboards::Motherboard *master,
+                Systems::Informations::Motherboards::Motherboard *information
+            ) : Base::Hardwares::Abstracts::Hardware_Abstract(),
+                m_pMaster(master),
+                m_pInformation(information)
             {
             }
 
@@ -29,14 +31,14 @@ namespace Base::Hardwares::Motherboards
                 vector<string> &raw_information
             )
             {
-                m_information.construct(
+                m_pInformation->construct(
                     raw_information
                 );
             }
 
             vector<string> get_information_filters()
             {
-                return m_information.get_filters();
+                return m_pInformation->get_filters();
             }
 
             json get_full_information()
@@ -45,9 +47,9 @@ namespace Base::Hardwares::Motherboards
 
                 result = {
                     {"information", {
-                        {"manufacturer", m_information.get_manufacturer()},
-                        {"product-name", m_information.get_product_name()},
-                        {"serial-number", m_information.get_serial_number()}
+                        {"manufacturer", m_pInformation->get_manufacturer()},
+                        {"product-name", m_pInformation->get_product_name()},
+                        {"serial-number", m_pInformation->get_serial_number()}
                     }}
                 };
 

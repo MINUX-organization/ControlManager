@@ -13,27 +13,29 @@ namespace Managers::CPUs
         virtual public Managers::Abstracts::Manager_Abstract
     {
         private:
-            Base::Hardwares::CPUs::CPU m_cpu_hardware;
+            Base::Hardwares::CPUs::CPU *m_pCpu_hardware;
 
         protected:
             CPU(
-                Base::Utilities::Commanders::Commander *pCommander
+                Base::Utilities::Commanders::Commander *pCommander,
+                Base::Hardwares::CPUs::CPU *pCpu_hardware
             ) : Managers::Abstracts::Manager_Abstract(
                     pCommander
-                )
+                ),
+                m_pCpu_hardware(pCpu_hardware)
             {
                 vector<string> raw_information;
-                vector<string> filters = m_cpu_hardware.get_information_filters();
+                vector<string> filters = m_pCpu_hardware->get_information_filters();
 
                 for (auto &filter : filters)
                     raw_information.push_back(
                         m_pCommander->execute_information_command(
-                            Systems::Shells::Factories::Command_Information_IDs::LSCPU,
+                            Systems::Shells::Factories::Command_Information_IDs::LSCPU_COMMAND,
                             filter
                         )
                     );
                 
-                m_cpu_hardware.update_full_information(
+                m_pCpu_hardware->update_full_information(
                     raw_information
                 );
             }
@@ -42,11 +44,13 @@ namespace Managers::CPUs
             virtual ~CPU() = default;
 
             static Managers::CPUs::CPU & get_instance(
-                Base::Utilities::Commanders::Commander *pCommander
+                Base::Utilities::Commanders::Commander *pCommander,
+                Base::Hardwares::CPUs::CPU *pCpu_hardware
             )
             {
                 static Managers::CPUs::CPU instance(
-                    pCommander
+                    pCommander,
+                    pCpu_hardware
                 );
 
                 return instance;
@@ -54,7 +58,7 @@ namespace Managers::CPUs
 
             json get_full_information()
             {
-                return m_cpu_hardware.get_full_information();
+                return m_pCpu_hardware->get_full_information();
             }
 
             CPU(

@@ -5,21 +5,23 @@
 
 #include "../../common.hpp"
 
-#include "../../../../systems/informations/cpus/inc/cpus.hpp"
-#include "../../../../systems/masters/cpus/inc/cpus.hpp"
-
 namespace Base::Hardwares::CPUs
 {
     class CPU : 
         virtual public Base::Hardwares::Abstracts::Hardware_Abstract
     {
         private:
-            Systems::Masters::CPUs::CPU m_master;
+            Systems::Masters::CPUs::CPU *m_pMaster;
 
-            Systems::Informations::CPUs::CPU m_information;
+            Systems::Informations::CPUs::CPU *m_pInformation;
 
         public:
-            CPU() : Base::Hardwares::Abstracts::Hardware_Abstract()
+            CPU(
+                Systems::Masters::CPUs::CPU *master,
+                Systems::Informations::CPUs::CPU *information
+            ) : Base::Hardwares::Abstracts::Hardware_Abstract(),
+                m_pMaster(master),
+                m_pInformation(information)
             {
             }
 
@@ -29,14 +31,14 @@ namespace Base::Hardwares::CPUs
                 vector<string> &raw_information
             )
             {
-                m_information.construct(
+                m_pInformation->construct(
                     raw_information
                 );
             }
 
             vector<string> get_information_filters()
             {
-                return m_information.get_filters();
+                return m_pInformation->get_filters();
             }
 
             json get_full_information()
@@ -45,22 +47,22 @@ namespace Base::Hardwares::CPUs
 
                 result = {
                     {"information", {
-                        {"manufacturer", m_information.get_manufacturer()},
-                        {"model-name", m_information.get_model_name()},
-                        {"architecture", m_information.get_architecture()},
-                        {"op-modes", m_information.get_op_mode()},
+                        {"manufacturer", m_pInformation->get_manufacturer()},
+                        {"model-name", m_pInformation->get_model_name()},
+                        {"architecture", m_pInformation->get_architecture()},
+                        {"op-modes", m_pInformation->get_op_mode()},
                         {"cores", {
-                            {"cpus", m_information.get_cpus()},
-                            {"threads-per-core", m_information.get_threads_per_core()},
-                            {"threads-per-socket", m_information.get_threads_per_socket()},
-                            {"sockets", m_information.get_sockets()}
+                            {"cpus", m_pInformation->get_cpus()},
+                            {"threads-per-core", m_pInformation->get_threads_per_core()},
+                            {"threads-per-socket", m_pInformation->get_threads_per_socket()},
+                            {"sockets", m_pInformation->get_sockets()}
                         }}
                     }},
                     {"state", {
                         {"clocks-mhz", {
-                            {"scalling", m_information.get_clock_scaling()},
-                            {"max", m_information.get_clock_max()},
-                            {"min", m_information.get_clock_min()}
+                            {"scalling", m_pInformation->get_clock_scaling()},
+                            {"max", m_pInformation->get_clock_max()},
+                            {"min", m_pInformation->get_clock_min()}
                         }}
                     }}
                 };

@@ -5,28 +5,23 @@
 
 #include "../../common.hpp"
 
-#include "../../../../systems/informations/gpus/inc/gpus.hpp"
-#include "../../../../systems/masters/gpus/inc/gpus.hpp"
-
 namespace Base::Hardwares::GPUs
 {
     class Nvidia :
         virtual public Base::Hardwares::Abstracts::Hardware_Abstract
     {
         private:
-            Systems::Masters::GPUs::Nvidia m_master;
+            Systems::Masters::GPUs::Nvidia *m_pMaster;
 
-            Systems::Informations::GPUs::Nvidia m_information;
+            Systems::Informations::GPUs::Nvidia *m_pInformation;
 
         public:
             Nvidia(
-                size_t gpu_id,
-                Display *display
+                Systems::Masters::GPUs::Nvidia *master,
+                Systems::Informations::GPUs::Nvidia *information
             ) : Base::Hardwares::Abstracts::Hardware_Abstract(),
-                m_master(
-                    gpu_id,
-                    display
-                )
+                m_pMaster(master),
+                m_pInformation(information)
             {
             }
 
@@ -34,14 +29,14 @@ namespace Base::Hardwares::GPUs
                 vector<string> &raw_information
             )
             {
-                m_information.construct(
+                m_pInformation->construct(
                     raw_information
                 );
             }
 
             vector<string> get_information_filters()
             {
-                return m_information.get_filters();
+                return m_pInformation->get_filters();
             }
 
             json get_full_information()

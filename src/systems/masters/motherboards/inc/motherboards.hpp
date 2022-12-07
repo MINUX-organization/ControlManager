@@ -7,14 +7,17 @@
 
 namespace Systems::Masters::Motherboards
 {
-    class Motherboard
+    class Motherboard :
+        virtual public Systems::Masters::Abstracts::Master_Abstract
     {
         private:
 
         public:
-            Motherboard() = default;
+            Motherboard() : Systems::Masters::Abstracts::Master_Abstract()
+            {
+            }
 
-            ~Motherboard() = default;
+            virtual ~Motherboard() = default;
     };
 }
 

@@ -27,7 +27,7 @@ namespace Base::Utilities::Commanders
                 string filter
             )
             {
-                Systems::Shells::Commands::Abstracts::Command_Information_Abstract command = m_command_factory.get_command(
+                Systems::Shells::Commands::Abstracts::Command_Information_Abstract *command = m_command_factory.get_command(
                     command_id,
                     filter
                 );

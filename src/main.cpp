@@ -26,11 +26,6 @@ int main(int arc, char* argv[])
             Managers::Factories::Manager_IDs::CPUS_MANAGER
         )
     );
-    // Managers::GPUs::GPU* gpu_mngr = dynamic_cast<Managers::GPUs::GPU*>(
-    //     mngr_fctr.get_manager(
-    //         Managers::Factories::Manager_IDs::GPUS_MANAGER
-    //     )
-    // );
     Managers::Motherboards::Motherboard* motherboard_mngr = dynamic_cast<Managers::Motherboards::Motherboard*>(
         mngr_fctr.get_manager(
             Managers::Factories::Manager_IDs::MOTHERBOARDS_MANAGER

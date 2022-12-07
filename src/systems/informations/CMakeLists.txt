@@ -11,6 +11,7 @@ add_library(
     STATIC
 
     common.hpp
+    factories.hpp
 
     # Headers
     cpus/inc/cpus.hpp

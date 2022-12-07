@@ -5,4 +5,19 @@
 
 #include "../common.hpp"
 
+namespace Systems::Masters::Abstracts
+{
+    class Master_Abstract
+    {
+        private:
+
+        protected:
+
+        public:
+            Master_Abstract() = default;
+
+            virtual ~Master_Abstract() = default;
+    };
+}
+
 #endif

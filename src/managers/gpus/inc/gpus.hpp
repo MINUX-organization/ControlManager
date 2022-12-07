@@ -44,43 +44,16 @@ namespace Managers::GPUs
             /**
              * @brief Array of all Nvidia GPUs
              */
-            vector<Base::Hardwares::GPUs::Nvidia> m_nvidia_gpus;
+            vector<Base::Hardwares::GPUs::Nvidia*> m_nvidia_gpus;
 
             /**
              * @brief Array of all AMD GPUs
              */
-            vector<Base::Hardwares::GPUs::AMD> m_amd_gpus;
+            vector<Base::Hardwares::GPUs::AMD*> m_amd_gpus;
 
             void prepare_nvidia_gpus()
             {
-                bool error;
 
-                int nvidia_gpus_count = 0;
-
-                m_display = XOpenDisplay(nullptr);
-
-                if (m_display == nullptr)
-                    // TODO: Error: Failed to open X display, check if $DISPLAY is set
-                    exit(EXIT_FAILURE);
-
-                // Initialize all Nvidia GPUs
-                error = XNVCTRLQueryTargetCount(
-                    m_display,
-                    NV_CTRL_TARGET_TYPE_GPU,
-                    &nvidia_gpus_count
-                );
-                
-                if (!error)
-                    // TODO: Error: Failed to query amount of GPUs
-                    exit(EXIT_FAILURE);
-
-                for (int i = 0; i < nvidia_gpus_count; i++)
-                    m_nvidia_gpus.push_back(
-                        Base::Hardwares::GPUs::Nvidia(
-                            i,
-                            m_display
-                        )
-                    );
             }
 
             void prepare_amd_gpus()
@@ -93,9 +66,17 @@ namespace Managers::GPUs
              * @brief Construct a new gpu manager object
              */
             GPU(
-                Base::Utilities::Commanders::Commander *pCommander
+                Base::Utilities::Commanders::Commander *pCommander,
+                vector<Base::Hardwares::GPUs::Nvidia*> &nvidia_gpus,
+                vector<Base::Hardwares::GPUs::AMD*> &amd_gpus
             ) : Managers::Abstracts::Manager_Abstract(
                     pCommander
+                ),
+                m_nvidia_gpus(
+                    nvidia_gpus
+                ),
+                m_amd_gpus(
+                    amd_gpus
                 )
             {
                 prepare_nvidia_gpus();
@@ -109,11 +90,15 @@ namespace Managers::GPUs
             virtual ~GPU() = default;
 
             static Managers::GPUs::GPU & get_instance(
-                Base::Utilities::Commanders::Commander *pCommander
+                Base::Utilities::Commanders::Commander *pCommander,
+                vector<Base::Hardwares::GPUs::Nvidia*> &nvidia_gpus,
+                vector<Base::Hardwares::GPUs::AMD*> &amd_gpus
             )
             {
                 static Managers::GPUs::GPU instance(
-                    pCommander
+                    pCommander,
+                    nvidia_gpus,
+                    amd_gpus
                 );
 
                 return instance;

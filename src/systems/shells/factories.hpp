@@ -12,8 +12,8 @@ namespace Systems::Shells::Factories
 {
     enum Command_Information_IDs
     {
-        LSCPU = 0x00,
-        DMIDECODE
+        LSCPU_COMMAND = 0x00,
+        DMIDECODE_COMMAND
     };
 
     class Command_Factory
@@ -26,21 +26,21 @@ namespace Systems::Shells::Factories
 
             virtual ~Command_Factory() = default;
 
-            Systems::Shells::Commands::Abstracts::Command_Information_Abstract get_command(
-                size_t command,
+            Systems::Shells::Commands::Abstracts::Command_Information_Abstract* get_command(
+                size_t command_id,
                 string &filter
             )
             {
-                if (command == Systems::Shells::Factories::Command_Information_IDs::LSCPU)
+                if (command_id == Systems::Shells::Factories::Command_Information_IDs::LSCPU_COMMAND)
                     m_command = new Systems::Shells::Commands::Informations::Command_lscpu(
                         filter
                     );
-                if (command == Systems::Shells::Factories::Command_Information_IDs::DMIDECODE)
+                if (command_id == Systems::Shells::Factories::Command_Information_IDs::DMIDECODE_COMMAND)
                     m_command = new Systems::Shells::Commands::Informations::Command_dmidecode(
                         filter
                     );
                 
-                return *m_command;
+                return m_command;
             }
     };
 }

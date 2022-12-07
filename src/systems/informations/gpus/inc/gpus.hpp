@@ -11,13 +11,17 @@ namespace Systems::Informations::GPUs
         virtual public Systems::Informations::Abstracts::Information_Abstract
     {
         private:
+            size_t m_gpu_id;
+
             vector<string> m_filters = {
 
             };
 
         public:
             Nvidia(
-            ) : Systems::Informations::Abstracts::Information_Abstract()
+                size_t gpu_id
+            ) : Systems::Informations::Abstracts::Information_Abstract(),
+                m_gpu_id(gpu_id)
             {
             }
 

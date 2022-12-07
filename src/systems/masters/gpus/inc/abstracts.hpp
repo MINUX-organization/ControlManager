@@ -12,7 +12,8 @@ namespace Systems::Masters::GPUs::Abstracts
     /**
      * @brief Abstract class for GPU communicator
      */
-    class GPU_Master_Abstract
+    class GPU_Master_Abstract :
+        virtual public Systems::Masters::Abstracts::Master_Abstract
     {
         private:
 
@@ -124,7 +125,8 @@ namespace Systems::Masters::GPUs::Abstracts
              */
             GPU_Master_Abstract(
                 size_t gpu_id
-            ) : m_gpu_id(gpu_id)
+            ) : Systems::Masters::Abstracts::Master_Abstract(),
+                m_gpu_id(gpu_id)
             {
                 // Set error handler
                 XSetErrorHandler(

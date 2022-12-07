@@ -50,10 +50,10 @@ namespace Systems::Shells::Executors
              * @param command Command object
              */
             void execute(
-                Systems::Shells::Commands::Abstracts::Command_Information_Abstract &command
+                Systems::Shells::Commands::Abstracts::Command_Information_Abstract *command
             )
             {
-                string cmd = command.get_command();
+                string cmd = command->get_command();
 
                 char buffer[1024];
 
