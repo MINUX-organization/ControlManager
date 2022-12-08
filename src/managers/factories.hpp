@@ -82,8 +82,8 @@ namespace Managers::Factories
                 Base::Utilities::Commanders::Commander *pCommander
             ) : m_pCommander(pCommander)
             {
-                // vector<Base::Hardwares::GPUs::Nvidia*> nvidia_gpus = prepare_nvidia_gpus();
-                // vector<Base::Hardwares::GPUs::AMD*> amd_gpus = prepare_amd_gpus();
+                vector<Base::Hardwares::GPUs::Nvidia*> nvidia_gpus = prepare_nvidia_gpus();
+                vector<Base::Hardwares::GPUs::AMD*> amd_gpus = prepare_amd_gpus();
 
                 Base::Hardwares::CPUs::CPU *pCpu_hardware = dynamic_cast<Base::Hardwares::CPUs::CPU*>(
                     m_hardware_factory.get_hardware(

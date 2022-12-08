@@ -13,10 +13,12 @@ find_package( Threads REQUIRED )
 find_package( Boost REQUIRED )
 
 add_subdirectory( sockets )
+add_subdirectory( exceptions)
 
 include_directories(
     ${Boost_INCLUDE_DIRS}
     "./sockets"
+    "./exceptions"
 
     /usr/local/include
 )
@@ -42,6 +44,7 @@ target_link_libraries(
     Threads::Threads
 
     ControlManager-kernel-sockets
+    ControlManager-kernel-exceptions
 )
 
 

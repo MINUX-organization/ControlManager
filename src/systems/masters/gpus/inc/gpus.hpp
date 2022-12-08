@@ -33,7 +33,7 @@ namespace Systems::Masters::GPUs
             /**
              * @brief Xorg display object
              */
-            Display *m_display;
+            Display *m_pDisplay;
 
             /**
              * @brief Query attribute and get string response
@@ -50,7 +50,7 @@ namespace Systems::Masters::GPUs
                 char *str;
 
                 bool error = XNVCTRLQueryTargetStringAttribute(
-                    m_display,
+                    m_pDisplay,
                     target_type,
                     m_gpu_id,
                     0,
@@ -59,8 +59,11 @@ namespace Systems::Masters::GPUs
                 );
 
                 if (!error)
-                    // TODO: Handle error
-                    exit(EXIT_FAILURE);
+                    throw Kernel::Exceptions::Systems::Masters::GPUs::Nvidias::Error_Query_String_Attribute(
+                        target_type,
+                        m_gpu_id,
+                        attribute
+                    );
                 
                 return string(str);
             }
@@ -80,7 +83,7 @@ namespace Systems::Masters::GPUs
                 int res;
 
                 bool error = XNVCTRLQueryTargetAttribute(
-                    m_display,
+                    m_pDisplay,
                     target_type,
                     m_gpu_id,
                     0,
@@ -89,8 +92,11 @@ namespace Systems::Masters::GPUs
                 );
 
                 if (!error)
-                    // TODO: Handle error
-                    exit(EXIT_FAILURE);
+                    throw Kernel::Exceptions::Systems::Masters::GPUs::Nvidias::Error_Query_Int_Attribute(
+                        target_type,
+                        m_gpu_id,
+                        attribute
+                    );
 
                 return res;
             }
@@ -110,7 +116,7 @@ namespace Systems::Masters::GPUs
                 NVCTRLAttributeValidValuesRec value;
 
                 bool error = XNVCTRLQueryValidTargetAttributeValues(
-                    m_display,
+                    m_pDisplay,
                     target_type, 
                     m_gpu_id,
                     0, 
@@ -119,8 +125,11 @@ namespace Systems::Masters::GPUs
                 );
 
                 if (!error)
-                    // TODO: Handle error
-                    exit(EXIT_FAILURE);
+                    throw Kernel::Exceptions::Systems::Masters::GPUs::Nvidias::Error_Query_Value_Attribute(
+                        target_type,
+                        m_gpu_id,
+                        attribute
+                    );
 
                 return value;
             }
@@ -139,7 +148,7 @@ namespace Systems::Masters::GPUs
             )
             {
                 bool error = XNVCTRLSetTargetAttributeAndGetStatus(
-                    m_display,
+                    m_pDisplay,
                     target_type,
                     m_gpu_id,
                     0, 
@@ -148,8 +157,11 @@ namespace Systems::Masters::GPUs
                 );
 
                 if (!error)
-                    // TODO: Handle error
-                    exit(EXIT_FAILURE);
+                    throw Kernel::Exceptions::Systems::Masters::GPUs::Nvidias::Error_Set_Int_Attribute(
+                        target_type,
+                        m_gpu_id,
+                        attribute
+                    );
             }
 
         public:
@@ -164,7 +176,7 @@ namespace Systems::Masters::GPUs
             ) : Systems::Masters::GPUs::Abstracts::GPU_Master_Abstract(
                     gpu_id
                 ),
-                m_display(
+                m_pDisplay(
                     display
                 )
             {
@@ -174,13 +186,14 @@ namespace Systems::Masters::GPUs
 
                 if (
                     !XNVCTRLQueryExtension(
-                        m_display,
+                        m_pDisplay,
                         &event_base,
                         &error_base
                     )
                 )
-                    // TODO: Error: XNVCtrl extension doesn't exist on m_display
-                    exit(EXIT_FAILURE);
+                    throw Kernel::Exceptions::Systems::Masters::GPUs::Nvidias::Error_XNVCtrl_Not_Found(
+                        m_pDisplay
+                    );
 
                 nvmlDeviceGetHandleByIndex_v2(
                     m_gpu_id,

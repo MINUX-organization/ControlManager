@@ -1,5 +1,20 @@
 {
     "files.associations": {
-        "chrono": "cpp"
+        "chrono": "cpp",
+        "*.ipp": "cpp",
+        "limits": "cpp",
+        "functional": "cpp",
+        "regex": "cpp",
+        "variant": "cpp",
+        "*.tpl": "cpp",
+        "any": "cpp",
+        "bitset": "cpp",
+        "exception": "cpp",
+        "future": "cpp",
+        "new": "cpp",
+        "optional": "cpp",
+        "stdexcept": "cpp",
+        "typeinfo": "cpp",
+        "*.inc": "cpp"
     }
 }

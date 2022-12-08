@@ -34,7 +34,6 @@
 #include <array>
 #include <map>
 
-
 #include <signal.h>
 #include <errno.h>
 

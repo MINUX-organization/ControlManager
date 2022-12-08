@@ -15,5 +15,6 @@
 #define SYSTEMS_COMMON_HEADER
 
 #include "../kernel/common.hpp"
+#include "../kernel/exceptions/inc/exceptions.hpp"
 
 #endif

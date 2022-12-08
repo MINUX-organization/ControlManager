@@ -1,9 +1,9 @@
 #include "main.hpp"
 
 #include "communicators/web_interfaces/inc/web_interfaces.hpp"
-#include "kernel/sockets/clients/inc/clients.hpp"
 
 #include "managers/factories.hpp"
+#include "kernel/exceptions/inc/exceptions.hpp"
 
 int main(int arc, char* argv[])
 {
@@ -13,7 +13,6 @@ int main(int arc, char* argv[])
     
     string host = config["web_interface"]["host"];
     int port = config["web_interface"]["port"];
-
 
     Base::Utilities::Commanders::Commander &commander = Base::Utilities::Commanders::Commander::get_instance();
 
