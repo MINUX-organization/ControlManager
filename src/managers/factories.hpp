@@ -46,8 +46,9 @@ namespace Managers::Factories
                 Display *pDisplay = XOpenDisplay(nullptr);
 
                 if (pDisplay == nullptr)
-                    // TODO: Error: Failed to open X display, check if $DISPLAY is set
-                    exit(EXIT_FAILURE);
+                    throw Kernel::Exceptions::Managers::Factories::Error_Open_Display(
+                        pDisplay
+                    );
 
                 // Initialize all Nvidia GPUs
                 error = XNVCTRLQueryTargetCount(
@@ -57,8 +58,9 @@ namespace Managers::Factories
                 );
                 
                 if (!error)
-                    // TODO: Error: Failed to query amount of GPUs
-                    exit(EXIT_FAILURE);
+                    throw Kernel::Exceptions::Managers::Factories::Error_Query_Nvidia_Amount(
+                        pDisplay
+                    );
 
                 for (int i = 0; i < nvidia_gpus_count; i++)
                     m_hardware_factory.get_hardware(

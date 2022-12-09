@@ -5,6 +5,8 @@
 
 #include "../../common.hpp"
 
+#include "../../../exceptions/inc/exceptions.hpp"
+
 #include <netinet/tcp.h>
 #include <netinet/in.h>
 #include <sys/socket.h>
@@ -63,8 +65,9 @@ namespace Kernel::Sockets::Clients
                 );
 
                 if (hp == NULL)
-                    // TODO: Error: Couldnot determine host
-                    exit(1);
+                    throw Kernel::Exceptions::Sockets::Clients::Error_Bad_Host(
+                        m_host.c_str()
+                    );
                 
                 bcopy(
                     hp->h_addr_list[0],
@@ -88,8 +91,9 @@ namespace Kernel::Sockets::Clients
                 );
 
                 if (m_socket == -1)
-                    // TODO: Error: Couldnot create socket
-                    exit(1);
+                    throw Kernel::Exceptions::Sockets::Clients::Error_Socket_Creation(
+                        m_socket
+                    );
 
                 int res = connect(
                     m_socket, 
@@ -98,8 +102,9 @@ namespace Kernel::Sockets::Clients
                 );
 
                 if(res != 0)
-                    // TODO: Error: Couldnot create connection
-                    exit(1);
+                    throw Kernel::Exceptions::Sockets::Clients::Error_Bad_Connection(
+                        res
+                    );
             }
 
             void send(
@@ -122,8 +127,12 @@ namespace Kernel::Sockets::Clients
                     );
 
                     if (iBytes < 0)
-                        // TODO: Error: While writing
-                        break;
+                        throw Kernel::Exceptions::Sockets::Clients::Error_Sending_Message(
+                            m_socket,
+                            pMessage,
+                            iSent,
+                            iTotal
+                        );
                     
                     if (iBytes == 0)
                         break;
@@ -154,8 +163,12 @@ namespace Kernel::Sockets::Clients
                     );
 
                     if (bytes < 0)
-                        // TODO: Error: While receiving
-                        break;
+                        throw Kernel::Exceptions::Sockets::Clients::Error_Receiving_Message(
+                            m_socket,
+                            buffer,
+                            received,
+                            total
+                        );
                     
                     if (bytes == 0)
                         break;

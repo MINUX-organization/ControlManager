@@ -372,14 +372,16 @@ namespace Systems::Masters::GPUs
              */
             void set_power_limit(size_t power_limit)
             {
-                // nvmlReturn_t ret = nvmlDeviceSetPowerManagementLimit(
-                //     *m_device,
-                //     power_limit
-                // );
+                nvmlReturn_t ret = nvmlDeviceSetPowerManagementLimit(
+                    *m_device,
+                    power_limit
+                );
 
-                // if (ret != NVML_SUCCESS)
-                //     // TODO: Handle error
-                //     exit(EXIT_FAILURE);
+                if (ret != NVML_SUCCESS)
+                    throw Kernel::Exceptions::Systems::Masters::GPUs::Nvidias::Error_Set_Power_Limit(
+                        m_device,
+                        power_limit
+                    );
             }
 
             /**
